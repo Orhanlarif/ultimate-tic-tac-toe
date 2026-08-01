@@ -1,0 +1,22 @@
+# Render Blueprint — Socket.IO realtime server
+# Dashboard: New → Blueprint → this repo
+# Free web service: spins down after 15 min idle; keep awake with UptimeRobot → /health
+
+services:
+  - type: web
+    name: uttt-realtime
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./apps/realtime/Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: REALTIME_JWT_SECRET
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
