@@ -1,0 +1,17 @@
+node_modules
+dist
+.next
+.next-build
+.turbo
+coverage
+.env
+.env.local
+*.log
+.DS_Store
+playwright-report
+test-results
+apps/web/e2e/shots
+apps/web/messages/.cache
+*.tsbuildinfo
+# Scratch engine snapshot for tools/compareEngines.ts
+packages/bot/baseline

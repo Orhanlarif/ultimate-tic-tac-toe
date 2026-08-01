@@ -1,0 +1,37 @@
+{
+  "name": "@uttt/bot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "@uttt/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -b tsconfig.json",
+    "test": "vitest run",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "bench": "tsx src/bench.ts",
+    "compare": "tsx src/compare.ts",
+    "calibrate": "tsx src/calibrate.ts",
+    "arena:quick": "tsx src/calibrate.ts quick",
+    "arena:full": "tsx src/calibrate.ts full",
+    "arena:fixtures": "tsx src/calibrate.ts fixtures",
+    "arena:ship": "tsx tools/shipArena.ts",
+    "arena:baseline": "tsx tools/compareEngines.ts",
+    "gen:tactics": "tsx tools/genTactics.ts"
+  },
+  "dependencies": {
+    "@uttt/game-engine": "*"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}

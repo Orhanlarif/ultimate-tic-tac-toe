@@ -1,0 +1,38 @@
+{
+  "name": "@uttt/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3000",
+    "build": "next build",
+    "start": "next start",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@uttt/bot": "*",
+    "@uttt/contracts": "*",
+    "@uttt/db": "*",
+    "@uttt/game-engine": "*",
+    "@uttt/rating": "*",
+    "bcryptjs": "^3.0.3",
+    "jose": "^6.0.11",
+    "next": "^15.3.3",
+    "next-auth": "5.0.0-beta.28",
+    "next-intl": "^4.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "socket.io-client": "^4.8.1",
+    "uuid": "^11.1.0",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.30",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}

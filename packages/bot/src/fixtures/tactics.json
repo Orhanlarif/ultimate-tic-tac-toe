@@ -1,0 +1,2326 @@
+[
+  {
+    "id": "mate-00",
+    "moves": [
+      {
+        "board": 6,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 5
+      }
+    ],
+    "sideToMove": "X",
+    "winningMoves": [
+      {
+        "board": 5,
+        "cell": 4
+      },
+      {
+        "board": 5,
+        "cell": 8
+      }
+    ],
+    "mateIn": 13
+  },
+  {
+    "id": "mate-01",
+    "moves": [
+      {
+        "board": 4,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 3
+      }
+    ],
+    "sideToMove": "O",
+    "winningMoves": [
+      {
+        "board": 6,
+        "cell": 5
+      }
+    ],
+    "mateIn": 9
+  },
+  {
+    "id": "mate-02",
+    "moves": [
+      {
+        "board": 8,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 7
+      },
+      {
+        "board": 4,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 7
+      },
+      {
+        "board": 3,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 3
+      },
+      {
+        "board": 2,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 2
+      },
+      {
+        "board": 5,
+        "cell": 2
+      }
+    ],
+    "sideToMove": "X",
+    "winningMoves": [
+      {
+        "board": 0,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 5
+      },
+      {
+        "board": 4,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 6
+      },
+      {
+        "board": 5,
+        "cell": 6
+      },
+      {
+        "board": 5,
+        "cell": 8
+      },
+      {
+        "board": 6,
+        "cell": 4
+      },
+      {
+        "board": 6,
+        "cell": 5
+      },
+      {
+        "board": 6,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 0
+      },
+      {
+        "board": 8,
+        "cell": 8
+      }
+    ],
+    "mateIn": 7
+  },
+  {
+    "id": "mate-03",
+    "moves": [
+      {
+        "board": 4,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 5
+      },
+      {
+        "board": 2,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 8
+      }
+    ],
+    "sideToMove": "O",
+    "winningMoves": [
+      {
+        "board": 8,
+        "cell": 4
+      },
+      {
+        "board": 8,
+        "cell": 6
+      }
+    ],
+    "mateIn": 11
+  },
+  {
+    "id": "mate-04",
+    "moves": [
+      {
+        "board": 4,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 4
+      },
+      {
+        "board": 5,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 8
+      }
+    ],
+    "sideToMove": "O",
+    "winningMoves": [
+      {
+        "board": 8,
+        "cell": 1
+      },
+      {
+        "board": 8,
+        "cell": 5
+      }
+    ],
+    "mateIn": 15
+  },
+  {
+    "id": "mate-05",
+    "moves": [
+      {
+        "board": 2,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 5
+      }
+    ],
+    "sideToMove": "X",
+    "winningMoves": [
+      {
+        "board": 0,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 1
+      },
+      {
+        "board": 0,
+        "cell": 4
+      },
+      {
+        "board": 2,
+        "cell": 2
+      },
+      {
+        "board": 3,
+        "cell": 1
+      },
+      {
+        "board": 3,
+        "cell": 4
+      },
+      {
+        "board": 6,
+        "cell": 3
+      },
+      {
+        "board": 7,
+        "cell": 0
+      }
+    ],
+    "mateIn": 15
+  },
+  {
+    "id": "mate-06",
+    "moves": [
+      {
+        "board": 2,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 1
+      },
+      {
+        "board": 3,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 0
+      },
+      {
+        "board": 4,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 2
+      }
+    ],
+    "sideToMove": "X",
+    "winningMoves": [
+      {
+        "board": 2,
+        "cell": 3
+      }
+    ],
+    "mateIn": 15
+  },
+  {
+    "id": "mate-07",
+    "moves": [
+      {
+        "board": 4,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 3
+      },
+      {
+        "board": 7,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 3
+      },
+      {
+        "board": 8,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 3
+      },
+      {
+        "board": 5,
+        "cell": 8
+      },
+      {
+        "board": 2,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 5
+      }
+    ],
+    "sideToMove": "X",
+    "winningMoves": [
+      {
+        "board": 5,
+        "cell": 2
+      }
+    ],
+    "mateIn": 15
+  },
+  {
+    "id": "mate-08",
+    "moves": [
+      {
+        "board": 6,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 0
+      },
+      {
+        "board": 2,
+        "cell": 1
+      },
+      {
+        "board": 7,
+        "cell": 0
+      },
+      {
+        "board": 6,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 6
+      },
+      {
+        "board": 5,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 1
+      }
+    ],
+    "sideToMove": "O",
+    "winningMoves": [
+      {
+        "board": 4,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 8
+      }
+    ],
+    "mateIn": 15
+  },
+  {
+    "id": "mate-09",
+    "moves": [
+      {
+        "board": 6,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 0
+      },
+      {
+        "board": 1,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 0
+      },
+      {
+        "board": 8,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 6
+      },
+      {
+        "board": 8,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 8
+      },
+      {
+        "board": 5,
+        "cell": 8
+      },
+      {
+        "board": 4,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 5
+      }
+    ],
+    "sideToMove": "O",
+    "winningMoves": [
+      {
+        "board": 5,
+        "cell": 1
+      }
+    ],
+    "mateIn": 9
+  },
+  {
+    "id": "mate-10",
+    "moves": [
+      {
+        "board": 3,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 3
+      },
+      {
+        "board": 0,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 0
+      },
+      {
+        "board": 4,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 7
+      },
+      {
+        "board": 1,
+        "cell": 3
+      },
+      {
+        "board": 5,
+        "cell": 7
+      }
+    ],
+    "sideToMove": "X",
+    "winningMoves": [
+      {
+        "board": 1,
+        "cell": 2
+      },
+      {
+        "board": 4,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 5
+      },
+      {
+        "board": 4,
+        "cell": 8
+      },
+      {
+        "board": 5,
+        "cell": 2
+      },
+      {
+        "board": 5,
+        "cell": 4
+      },
+      {
+        "board": 6,
+        "cell": 4
+      },
+      {
+        "board": 6,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 6
+      }
+    ],
+    "mateIn": 7
+  },
+  {
+    "id": "mate-11",
+    "moves": [
+      {
+        "board": 3,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 7
+      },
+      {
+        "board": 7,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 0
+      },
+      {
+        "board": 0,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 6
+      },
+      {
+        "board": 6,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 2
+      },
+      {
+        "board": 2,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 1
+      },
+      {
+        "board": 1,
+        "cell": 8
+      },
+      {
+        "board": 8,
+        "cell": 5
+      },
+      {
+        "board": 5,
+        "cell": 4
+      },
+      {
+        "board": 4,
+        "cell": 3
+      },
+      {
+        "board": 3,
+        "cell": 6
+      }
+    ],
+    "sideToMove": "O",
+    "winningMoves": [
+      {
+        "board": 6,
+        "cell": 3
+      }
+    ],
+    "mateIn": 15
+  }
+]

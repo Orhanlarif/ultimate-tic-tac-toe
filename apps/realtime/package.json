@@ -1,0 +1,32 @@
+{
+  "name": "@uttt/realtime",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env NODE_OPTIONS=--conditions=@uttt/source tsx watch src/index.ts",
+    "build": "tsc -b tsconfig.json",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@uttt/contracts": "*",
+    "@uttt/db": "*",
+    "@uttt/game-engine": "*",
+    "@uttt/rating": "*",
+    "dotenv": "^16.5.0",
+    "ioredis": "^5.6.1",
+    "jose": "^6.0.11",
+    "socket.io": "^4.8.1",
+    "uuid": "^11.1.0",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "socket.io-client": "^4.8.1",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}

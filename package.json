@@ -1,0 +1,29 @@
+{
+  "name": "ultimate-tic-tac-toe",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "dev:web": "npm run dev -w @uttt/web",
+    "dev:realtime": "npm run dev -w @uttt/realtime",
+    "dev:realtime:memory": "cross-env MEMORY_ONLY=1 npm run dev -w @uttt/realtime",
+    "build": "npm run build -w @uttt/contracts -w @uttt/game-engine -w @uttt/rating -w @uttt/db -w @uttt/bot -w @uttt/realtime -w @uttt/web",
+    "test": "npm run test --workspaces --if-present",
+    "calibrate:bot": "npm run calibrate -w @uttt/bot",
+    "arena:quick": "npm run arena:quick -w @uttt/bot",
+    "arena:full": "npm run arena:full -w @uttt/bot",
+    "lint": "npm run lint --workspaces --if-present",
+    "db:generate": "npm run generate -w @uttt/db",
+    "db:migrate": "npm run migrate -w @uttt/db",
+    "db:push": "npm run push -w @uttt/db"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

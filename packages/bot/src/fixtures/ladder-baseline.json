@@ -1,0 +1,57 @@
+{
+  "generatedAt": "2026-07-31T15:56:51.150Z",
+  "note": "Measured on the maintainer's machine; ms figures are hardware-specific, nodes and Elo are not.",
+  "positions": 10,
+  "pairings": [
+    {
+      "candidate": "hard",
+      "baseline": "medium",
+      "games": 20,
+      "wins": 19,
+      "draws": 1,
+      "losses": 0,
+      "score": 0.9523809523809523,
+      "elo": 520.4119982655923,
+      "eloCiLow": 391.0894421155391,
+      "eloCiHigh": 645.113542687894
+    },
+    {
+      "candidate": "medium",
+      "baseline": "easy",
+      "games": 20,
+      "wins": 19,
+      "draws": 1,
+      "losses": 0,
+      "score": 0.9523809523809523,
+      "elo": 520.4119982655923,
+      "eloCiLow": 391.0894421155391,
+      "eloCiHigh": 645.113542687894
+    }
+  ],
+  "perMove": {
+    "easy": {
+      "avgNodes": 135,
+      "avgMs": 0.3,
+      "maxMs": 2.7,
+      "avgDepth": 1.9,
+      "profileNodeBudget": 2500,
+      "profileTimeMs": 100
+    },
+    "medium": {
+      "avgNodes": 10885,
+      "avgMs": 16.3,
+      "maxMs": 102.2,
+      "avgDepth": 5.43,
+      "profileNodeBudget": 60000,
+      "profileTimeMs": 500
+    },
+    "hard": {
+      "avgNodes": 1354569,
+      "avgMs": 1219.4,
+      "maxMs": 2001,
+      "avgDepth": 11.27,
+      "profileNodeBudget": 2400000,
+      "profileTimeMs": 2000
+    }
+  }
+}
