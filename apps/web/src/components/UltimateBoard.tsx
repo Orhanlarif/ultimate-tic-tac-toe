@@ -40,6 +40,9 @@ export function UltimateBoard({
         const isActive =
           winner === null && (activeBoard === null || activeBoard === bi);
         const playable = myTurn && isActive;
+        /* Forced board while waiting on the opponent — green frame so you can track it. */
+        const opponentFocus =
+          !disabled && !myTurn && winner === null && activeBoard === bi;
 
         return (
           <div
@@ -50,6 +53,7 @@ export function UltimateBoard({
               "local-board",
               isActive ? "is-available" : "",
               playable ? "is-playable" : "",
+              opponentFocus ? "is-opponent-focus" : "",
               winner ? "is-finished" : "",
             ]
               .filter(Boolean)
