@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
+import { PlayerAvatar } from "@/components/Marks";
 
 type UserDetail = {
   id: string;
@@ -214,13 +215,19 @@ export function AdminUserDetail({ userId }: { userId: string }) {
   return (
     <div className="page-stack">
       <div>
-        <Link className="muted" href="/admin">
+        <Link className="admin-back" href="/admin">
           ← {t("back")}
         </Link>
-        <h1 className="page-title">{t("detailTitle")}</h1>
-        <p className="page-subtitle">
-          <strong>{user.displayName}</strong> · @{user.username}
-        </p>
+        <div className="admin-user-head">
+          <PlayerAvatar name={user.displayName} size="lg" />
+          <div>
+            <h1 className="page-title">{user.displayName}</h1>
+            <p className="page-subtitle">
+              @{user.username}
+              {user.email ? ` · ${user.email}` : ""}
+            </p>
+          </div>
+        </div>
       </div>
 
       {message ? <p className="form-ok" role="status">{message}</p> : null}
@@ -232,27 +239,27 @@ export function AdminUserDetail({ userId }: { userId: string }) {
 
       <div className="card stat-grid">
         <div className="stat-item">
-          <span className="muted">{t("email")}</span>
-          <strong>{user.email ?? "—"}</strong>
+          <div className="muted">{t("status")}</div>
+          <div>
+            {user.bannedAt ? (
+              <span className="badge badge-danger">{t("banned")}</span>
+            ) : (
+              <span className="badge">{t("active")}</span>
+            )}
+          </div>
         </div>
         <div className="stat-item">
-          <span className="muted">{t("status")}</span>
-          <strong>
-            {user.bannedAt ? t("banned") : t("active")}
-          </strong>
-        </div>
-        <div className="stat-item">
-          <span className="muted">{t("rating")}</span>
+          <div className="muted">{t("rating")}</div>
           <strong>{rating?.rating ?? "—"}</strong>
         </div>
         <div className="stat-item">
-          <span className="muted">{t("league")}</span>
+          <div className="muted">{t("league")}</div>
           <strong>
             {rating?.league ? leagueT(rating.league as "bronze") : "—"}
           </strong>
         </div>
         <div className="stat-item">
-          <span className="muted">{t("record")}</span>
+          <div className="muted">{t("record")}</div>
           <strong>
             {rating
               ? `${rating.wins}/${rating.losses}/${rating.draws}`
@@ -260,19 +267,21 @@ export function AdminUserDetail({ userId }: { userId: string }) {
           </strong>
         </div>
         <div className="stat-item">
-          <span className="muted">{t("created")}</span>
-          <strong>{new Date(user.createdAt).toLocaleString()}</strong>
+          <div className="muted">{t("created")}</div>
+          <strong className="admin-stat-date">
+            {new Date(user.createdAt).toLocaleDateString()}
+          </strong>
         </div>
       </div>
 
-      <div className="card">
+      <div className="card admin-card">
         <h2>{user.bannedAt ? t("unban") : t("ban")}</h2>
         {!user.bannedAt ? (
           <>
-            <label className="field">
+            <label className="form-field">
               <span>{t("banReason")}</span>
               <input
-                className="field-input"
+                className="input"
                 value={banReason}
                 onChange={(e) => setBanReason(e.target.value)}
               />
@@ -289,7 +298,9 @@ export function AdminUserDetail({ userId }: { userId: string }) {
         ) : (
           <>
             {user.banReason ? (
-              <p className="muted">{user.banReason}</p>
+              <p className="muted" style={{ margin: 0 }}>
+                {user.banReason}
+              </p>
             ) : null}
             <button
               className="btn btn-primary"
@@ -303,13 +314,13 @@ export function AdminUserDetail({ userId }: { userId: string }) {
         )}
       </div>
 
-      <div className="card">
+      <div className="card admin-card">
         <h2>{t("resetPassword")}</h2>
         <form className="login-form" onSubmit={onResetPassword}>
-          <label className="field">
+          <label className="form-field">
             <span>{t("newPassword")}</span>
             <input
-              className="field-input"
+              className="input"
               type="password"
               minLength={8}
               value={newPassword}
@@ -323,57 +334,61 @@ export function AdminUserDetail({ userId }: { userId: string }) {
         </form>
       </div>
 
-      <div className="card">
+      <div className="card admin-card">
         <h2>{t("editRating")}</h2>
         <form className="login-form" onSubmit={onSaveRating}>
-          <label className="field">
-            <span>{t("ratingValue")}</span>
-            <input
-              className="field-input"
-              type="number"
-              min={0}
-              max={4000}
-              step={1}
-              value={ratingInput}
-              onChange={(e) => setRatingInput(e.target.value)}
-              required
-            />
-          </label>
-          <label className="field">
-            <span>{t("rdValue")}</span>
-            <input
-              className="field-input"
-              type="number"
-              min={1}
-              max={500}
-              step={1}
-              value={rdInput}
-              onChange={(e) => setRdInput(e.target.value)}
-            />
-          </label>
-          <label className="field">
-            <span>{t("leagueValue")}</span>
-            <select
-              className="field-input"
-              value={leagueInput}
-              onChange={(e) => setLeagueInput(e.target.value)}
-            >
-              {LEAGUE_OPTIONS.map((opt) => (
-                <option key={opt || "auto"} value={opt}>
-                  {opt ? leagueT(opt) : t("leagueAuto")}
-                </option>
-              ))}
-            </select>
-          </label>
+          <div className="admin-form-grid">
+            <label className="form-field">
+              <span>{t("ratingValue")}</span>
+              <input
+                className="input"
+                type="number"
+                min={0}
+                max={4000}
+                step={1}
+                value={ratingInput}
+                onChange={(e) => setRatingInput(e.target.value)}
+                required
+              />
+            </label>
+            <label className="form-field">
+              <span>{t("rdValue")}</span>
+              <input
+                className="input"
+                type="number"
+                min={1}
+                max={500}
+                step={1}
+                value={rdInput}
+                onChange={(e) => setRdInput(e.target.value)}
+              />
+            </label>
+            <label className="form-field">
+              <span>{t("leagueValue")}</span>
+              <select
+                className="select"
+                value={leagueInput}
+                onChange={(e) => setLeagueInput(e.target.value)}
+              >
+                {LEAGUE_OPTIONS.map((opt) => (
+                  <option key={opt || "auto"} value={opt}>
+                    {opt ? leagueT(opt) : t("leagueAuto")}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
           <button className="btn btn-primary" type="submit" disabled={pending}>
             {t("saveRating")}
           </button>
         </form>
       </div>
 
-      <div className="card">
+      <div className="card admin-card">
         <h2>{t("delete")}</h2>
-        <p className="muted">{t("deleteConfirm")}</p>
+        <p className="muted" style={{ margin: 0 }}>
+          {t("deleteConfirm")}
+        </p>
         <button
           className="btn btn-danger"
           type="button"
@@ -384,22 +399,26 @@ export function AdminUserDetail({ userId }: { userId: string }) {
         </button>
       </div>
 
-      <div className="card">
+      <div className="card admin-card">
         <h2>{t("matches")}</h2>
         {matches.length === 0 ? (
-          <p className="muted">{t("noMatches")}</p>
+          <p className="muted" style={{ margin: 0 }}>
+            {t("noMatches")}
+          </p>
         ) : (
           <ul className="list-stack">
             {matches.map((m) => (
               <li key={m.id} className="list-row">
-                <span>
-                  <strong>{m.mode}</strong> · {m.youWere} · {m.result ?? "—"}
-                  <span className="cell-sub">
+                <div className="admin-match-main">
+                  <strong>
+                    {m.mode} · {m.youWere} · {m.result ?? "—"}
+                  </strong>
+                  <span className="muted">
                     {m.endedAt
                       ? new Date(m.endedAt).toLocaleString()
                       : "—"}
                   </span>
-                </span>
+                </div>
                 <span className="muted">{m.moveCount} moves</span>
               </li>
             ))}
