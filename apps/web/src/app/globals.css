@@ -412,6 +412,18 @@ svg {
   flex-wrap: wrap;
 }
 
+.admin-user-head-copy {
+  min-width: 0;
+  flex: 1 1 12rem;
+}
+
+.admin-user-email {
+  margin: 0.25rem 0 0;
+  font-size: 0.88rem;
+  word-break: break-all;
+  line-height: 1.35;
+}
+
 .admin-card {
   display: grid;
   gap: 0.9rem;
@@ -445,13 +457,112 @@ svg {
   word-break: break-all;
 }
 
+.admin-mobile-only {
+  display: none;
+}
+
+.admin-user-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0.55rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.admin-user-card {
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-2);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.admin-user-card:hover {
+  border-color: rgba(47, 107, 255, 0.35);
+  background: var(--cell-hover);
+}
+
+.admin-user-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.65rem;
+}
+
+.admin-user-card-id {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.admin-user-card-id strong {
+  font-size: 1.02rem;
+  letter-spacing: -0.02em;
+}
+
+.admin-user-card-email {
+  font-size: 0.84rem;
+  word-break: break-all;
+}
+
+.admin-user-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.85rem;
+  font-size: 0.86rem;
+}
+
 @media (max-width: 720px) {
-  .admin-col-display {
-    display: none;
+  .admin-desktop-only {
+    display: none !important;
   }
 
-  .admin-table-card .leaderboard-table .cell-sub {
-    display: block;
+  .admin-mobile-only {
+    display: grid;
+  }
+
+  .admin-search {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-search .input,
+  .admin-search-btn,
+  .admin-action-btn {
+    width: 100%;
+  }
+
+  .admin-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .admin-stat-grid .stat-item strong {
+    font-size: 1.2rem;
+  }
+
+  .admin-user-head {
+    align-items: flex-start;
+  }
+
+  .admin-page .page-title {
+    font-size: clamp(1.45rem, 7vw, 1.9rem);
+  }
+
+  .admin-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-card {
+    padding: 1rem;
+  }
+
+  .list-row {
+    align-items: flex-start;
   }
 }
 

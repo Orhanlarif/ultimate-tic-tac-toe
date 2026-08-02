@@ -213,19 +213,19 @@ export function AdminUserDetail({ userId }: { userId: string }) {
   }
 
   return (
-    <div className="page-stack">
+    <div className="page-stack admin-page">
       <div>
         <Link className="admin-back" href="/admin">
           ← {t("back")}
         </Link>
         <div className="admin-user-head">
           <PlayerAvatar name={user.displayName} size="lg" />
-          <div>
+          <div className="admin-user-head-copy">
             <h1 className="page-title">{user.displayName}</h1>
-            <p className="page-subtitle">
-              @{user.username}
-              {user.email ? ` · ${user.email}` : ""}
-            </p>
+            <p className="page-subtitle">@{user.username}</p>
+            {user.email ? (
+              <p className="admin-user-email muted">{user.email}</p>
+            ) : null}
           </div>
         </div>
       </div>
@@ -237,7 +237,7 @@ export function AdminUserDetail({ userId }: { userId: string }) {
         </p>
       ) : null}
 
-      <div className="card stat-grid">
+      <div className="card stat-grid admin-stat-grid">
         <div className="stat-item">
           <div className="muted">{t("status")}</div>
           <div>
@@ -287,7 +287,7 @@ export function AdminUserDetail({ userId }: { userId: string }) {
               />
             </label>
             <button
-              className="btn btn-primary"
+              className="btn btn-primary admin-action-btn"
               type="button"
               disabled={pending}
               onClick={() => void onBan()}
@@ -303,7 +303,7 @@ export function AdminUserDetail({ userId }: { userId: string }) {
               </p>
             ) : null}
             <button
-              className="btn btn-primary"
+              className="btn btn-primary admin-action-btn"
               type="button"
               disabled={pending}
               onClick={() => void onUnban()}
@@ -328,7 +328,11 @@ export function AdminUserDetail({ userId }: { userId: string }) {
               required
             />
           </label>
-          <button className="btn btn-primary" type="submit" disabled={pending}>
+          <button
+            className="btn btn-primary admin-action-btn"
+            type="submit"
+            disabled={pending}
+          >
             {t("savePassword")}
           </button>
         </form>
@@ -378,7 +382,11 @@ export function AdminUserDetail({ userId }: { userId: string }) {
               </select>
             </label>
           </div>
-          <button className="btn btn-primary" type="submit" disabled={pending}>
+          <button
+            className="btn btn-primary admin-action-btn"
+            type="submit"
+            disabled={pending}
+          >
             {t("saveRating")}
           </button>
         </form>
@@ -390,7 +398,7 @@ export function AdminUserDetail({ userId }: { userId: string }) {
           {t("deleteConfirm")}
         </p>
         <button
-          className="btn btn-danger"
+          className="btn btn-danger admin-action-btn"
           type="button"
           disabled={pending}
           onClick={() => void onDelete()}
