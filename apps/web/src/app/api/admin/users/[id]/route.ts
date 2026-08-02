@@ -4,6 +4,7 @@ import {
 } from "@/lib/accounts";
 import { isAdminResult, requireAdminApi, requireDb } from "@/lib/admin";
 import { matches, ratings, seasons, users } from "@uttt/db";
+import { leagueFromRating } from "@uttt/rating";
 import { and, desc, eq, or } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -39,7 +40,7 @@ export async function GET(_req: Request, ctx: Ctx) {
           rating: Math.round(r.rating),
           rd: Math.round(r.rd),
           volatility: r.volatility,
-          league: r.league,
+          league: leagueFromRating(r.rating),
           wins: r.wins,
           losses: r.losses,
           draws: r.draws,

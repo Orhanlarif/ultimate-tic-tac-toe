@@ -114,8 +114,7 @@ export function scoreFromResult(
   return result === youAre ? 1 : 0;
 }
 
-export function leagueFromRating(rating: number, placementDone: boolean): LeagueTier {
-  if (!placementDone) return "bronze";
+export function leagueFromRating(rating: number): LeagueTier {
   if (rating < 1200) return "bronze";
   if (rating < 1400) return "silver";
   if (rating < 1600) return "gold";

@@ -36,11 +36,14 @@ describe("glicko-2", () => {
 });
 
 describe("helpers", () => {
-  it("maps results and leagues", () => {
+  it("maps results and leagues from rating only", () => {
     expect(scoreFromResult("X", "X")).toBe(1);
     expect(scoreFromResult("X", "O")).toBe(0);
     expect(scoreFromResult("O", "draw")).toBe(0.5);
-    expect(leagueFromRating(1500, true)).toBe("gold");
-    expect(leagueFromRating(1500, false)).toBe("bronze");
+    expect(leagueFromRating(1199)).toBe("bronze");
+    expect(leagueFromRating(1200)).toBe("silver");
+    expect(leagueFromRating(1500)).toBe("gold");
+    expect(leagueFromRating(1662)).toBe("platinum");
+    expect(leagueFromRating(2200)).toBe("grandmaster");
   });
 });

@@ -85,10 +85,7 @@ export async function PATCH(req: Request, ctx: Ctx) {
       .where(and(eq(ratings.userId, id), eq(ratings.seasonId, season.id)))
       .limit(1);
 
-    const placementGames = existing?.placementGames ?? PLACEMENT_GAMES;
-    const placementDone = placementGames >= PLACEMENT_GAMES;
-    const resolvedLeague =
-      league ?? leagueFromRating(ratingValue, placementDone);
+    const resolvedLeague = league ?? leagueFromRating(ratingValue);
 
     if (existing) {
       await db

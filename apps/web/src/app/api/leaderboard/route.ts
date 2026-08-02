@@ -1,5 +1,6 @@
 import { createDb, ratings, seasons, users } from "@uttt/db";
-import { and, desc, eq, gt, sql } from "drizzle-orm";
+import { leagueFromRating, PLACEMENT_GAMES } from "@uttt/rating";
+import { and, desc, eq, gte } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -38,8 +39,8 @@ export async function GET() {
       and(
         eq(ratings.seasonId, season.id),
         eq(users.isGuest, false),
-        // A seeded rating alone is not a ranking; only rated players belong here.
-        gt(sql`${ratings.wins} + ${ratings.losses} + ${ratings.draws}`, 0),
+        // Placement must finish before a player appears on the ladder.
+        gte(ratings.placementGames, PLACEMENT_GAMES),
       ),
     )
     .orderBy(desc(ratings.rating))
@@ -49,8 +50,14 @@ export async function GET() {
     season: { id: season.id, name: season.name },
     entries: entries.map((e, i) => ({
       rank: i + 1,
-      ...e,
+      username: e.username,
+      displayName: e.displayName,
       rating: Math.round(e.rating),
+      // Always derive league from rating so stored placement-era Bronze cannot drift.
+      league: leagueFromRating(e.rating),
+      wins: e.wins,
+      losses: e.losses,
+      draws: e.draws,
     })),
   });
 }

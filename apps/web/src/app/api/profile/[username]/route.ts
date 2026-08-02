@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { createDb, friendships, matches, ratings, seasons, users } from "@uttt/db";
+import { leagueFromRating } from "@uttt/rating";
 import { and, desc, eq, or } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -37,7 +38,7 @@ export async function GET(
     rating = r
       ? {
           rating: Math.round(r.rating),
-          league: r.league,
+          league: leagueFromRating(r.rating),
           wins: r.wins,
           losses: r.losses,
           draws: r.draws,

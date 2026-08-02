@@ -112,7 +112,7 @@ async function seedRating(db: ReturnType<typeof createDb>, userId: string) {
     rating: DEFAULT_RATING.rating,
     rd: DEFAULT_RATING.rd,
     volatility: DEFAULT_RATING.volatility,
-    league: leagueFromRating(DEFAULT_RATING.rating, false),
+    league: leagueFromRating(DEFAULT_RATING.rating),
   });
 }
 

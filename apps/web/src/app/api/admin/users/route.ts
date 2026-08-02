@@ -1,5 +1,6 @@
 import { isAdminResult, requireAdminApi, requireDb } from "@/lib/admin";
 import { ratings, seasons, users } from "@uttt/db";
+import { leagueFromRating } from "@uttt/rating";
 import { and, desc, eq, ilike, or, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -83,7 +84,7 @@ export async function GET(req: Request) {
         banReason: r.banReason,
         createdAt: r.createdAt,
         rating: r.rating != null ? Math.round(r.rating) : null,
-        league: r.league,
+        league: r.rating != null ? leagueFromRating(r.rating) : null,
         wins: r.wins ?? 0,
         losses: r.losses ?? 0,
         draws: r.draws ?? 0,

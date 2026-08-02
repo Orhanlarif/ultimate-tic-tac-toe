@@ -9,7 +9,7 @@ import {
   scoreFromResult,
   visibleRating,
 } from "@uttt/rating";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, gte } from "drizzle-orm";
 import type { LiveMatch } from "./match.js";
 
 export async function ensureActiveSeason(db: Db) {
@@ -83,7 +83,7 @@ export async function getOrCreateRating(db: Db, userId: string, seasonId: string
         rating: DEFAULT_RATING.rating,
         rd: DEFAULT_RATING.rd,
         volatility: DEFAULT_RATING.volatility,
-        league: "bronze",
+        league: leagueFromRating(DEFAULT_RATING.rating),
         placementGames: 0,
       })
       .returning();
@@ -203,7 +203,7 @@ export async function finalizeMatch(
         rating: updated.a.rating,
         rd: updated.a.rd,
         volatility: updated.a.volatility,
-        league: leagueFromRating(updated.a.rating, px >= PLACEMENT_GAMES),
+        league: leagueFromRating(updated.a.rating),
         placementGames: px,
         wins: rx.wins + (result === "X" ? 1 : 0),
         losses: rx.losses + (result === "O" ? 1 : 0),
@@ -220,7 +220,7 @@ export async function finalizeMatch(
         rating: updated.b.rating,
         rd: updated.b.rd,
         volatility: updated.b.volatility,
-        league: leagueFromRating(updated.b.rating, po >= PLACEMENT_GAMES),
+        league: leagueFromRating(updated.b.rating),
         placementGames: po,
         wins: ro.wins + (result === "O" ? 1 : 0),
         losses: ro.losses + (result === "X" ? 1 : 0),
@@ -265,11 +265,10 @@ export async function finalizeMatch(
 }
 
 export async function getLeaderboard(db: Db, seasonId: string, limit = 50) {
-  return db
+  const rows = await db
     .select({
       userId: ratings.userId,
       rating: ratings.rating,
-      league: ratings.league,
       wins: ratings.wins,
       losses: ratings.losses,
       draws: ratings.draws,
@@ -279,7 +278,17 @@ export async function getLeaderboard(db: Db, seasonId: string, limit = 50) {
     })
     .from(ratings)
     .innerJoin(users, eq(users.id, ratings.userId))
-    .where(eq(ratings.seasonId, seasonId))
+    .where(
+      and(
+        eq(ratings.seasonId, seasonId),
+        gte(ratings.placementGames, PLACEMENT_GAMES),
+      ),
+    )
     .orderBy(desc(ratings.rating))
     .limit(limit);
+
+  return rows.map((r) => ({
+    ...r,
+    league: leagueFromRating(r.rating),
+  }));
 }

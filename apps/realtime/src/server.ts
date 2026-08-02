@@ -26,6 +26,7 @@ import {
   type QueuedPlayer,
 } from "./queue.js";
 import { RoomManager, type Room } from "./rooms.js";
+import { leagueFromRating } from "@uttt/rating";
 
 export interface RealtimeServerOptions {
   corsOrigin?: string;
@@ -454,7 +455,7 @@ export function createRealtimeServer(
           rating = r.rating;
           rd = r.rd;
           volatility = r.volatility;
-          league = r.league;
+          league = leagueFromRating(r.rating);
           placementGames = r.placementGames;
         } catch (err) {
           console.error("[realtime] rating fetch failed", err);
