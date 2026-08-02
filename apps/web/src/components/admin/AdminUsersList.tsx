@@ -67,8 +67,13 @@ export function AdminUsersList() {
 
       <form className="admin-search card" onSubmit={onSearch}>
         <input
-          className="input"
-          type="search"
+          className="input admin-search-input"
+          type="text"
+          inputMode="search"
+          enterKeyHint="search"
+          autoComplete="off"
+          autoCorrect="off"
+          spellCheck={false}
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder={t("searchPlaceholder")}

@@ -364,15 +364,28 @@ svg {
 }
 
 .admin-search {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 0.65rem;
   align-items: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-.admin-search .input {
-  flex: 1 1 16rem;
+.admin-search-input {
+  width: 100%;
+  max-width: 100%;
   min-width: 0;
+  box-sizing: border-box;
+  /* Kill Safari/iOS search-field chrome that breaks padding and width. */
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.admin-search-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .admin-pager {
@@ -526,14 +539,23 @@ svg {
   }
 
   .admin-search {
-    flex-direction: column;
-    align-items: stretch;
+    grid-template-columns: 1fr;
+    padding: 0.9rem;
   }
 
-  .admin-search .input,
+  .admin-search-input,
   .admin-search-btn,
-  .admin-action-btn {
+  .admin-action-btn,
+  .admin-page .input,
+  .admin-page .select {
     width: 100%;
+    max-width: 100%;
+    /* Prevents iOS focus zoom that feels like a broken layout. */
+    font-size: 16px;
+  }
+
+  .admin-search-btn {
+    min-height: 48px;
   }
 
   .admin-stat-grid {
