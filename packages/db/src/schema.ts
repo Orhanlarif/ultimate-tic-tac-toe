@@ -56,6 +56,8 @@ export const users = pgTable(
     image: text("image"),
     passwordHash: text("password_hash"),
     isGuest: boolean("is_guest").notNull().default(false),
+    bannedAt: timestamp("banned_at", { withTimezone: true }),
+    banReason: text("ban_reason"),
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()
       .defaultNow(),

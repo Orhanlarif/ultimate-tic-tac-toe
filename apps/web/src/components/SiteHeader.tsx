@@ -15,6 +15,7 @@ import {
   IconLogin,
   IconLogout,
   IconMenu,
+  IconShield,
   IconTrophy,
   IconUser,
   IconUsers,
@@ -93,6 +94,7 @@ export function SiteHeader() {
   }
 
   const signedIn = status === "authenticated" && Boolean(session?.user);
+  const isAdmin = Boolean(session?.user?.isAdmin);
   const rankedHref = signedIn ? "/play?mode=ranked" : "/login?next=/play?mode=ranked";
   const displayName = session?.user?.name ?? t("profile");
   const username = session?.user?.username;
@@ -251,6 +253,17 @@ export function SiteHeader() {
                         {t("profile")}
                       </Link>
                     ) : null}
+                    {isAdmin ? (
+                      <Link
+                        className="account-menu-item"
+                        href="/admin"
+                        role="menuitem"
+                        onClick={() => setAccountOpen(false)}
+                      >
+                        <IconShield />
+                        {t("admin")}
+                      </Link>
+                    ) : null}
                     <button
                       className="account-menu-item is-danger"
                       type="button"
@@ -341,6 +354,15 @@ export function SiteHeader() {
                   {t("profile")}
                 </Link>
               ) : null}
+              {isAdmin ? (
+                <Link
+                  className="btn btn-ghost btn-sm"
+                  href="/admin"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {t("admin")}
+                </Link>
+              ) : null}
             </div>
           ) : null}
 
@@ -363,6 +385,14 @@ export function SiteHeader() {
               </span>
               {t("friends")}
             </Link>
+            {isAdmin ? (
+              <Link href="/admin" onClick={() => setMobileOpen(false)}>
+                <span className="nav-play-icon">
+                  <IconShield />
+                </span>
+                {t("admin")}
+              </Link>
+            ) : null}
           </nav>
 
           <div className="mobile-sheet-footer">

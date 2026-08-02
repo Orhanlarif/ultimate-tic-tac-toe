@@ -1,4 +1,7 @@
 import { AccountError, verifyAccount } from "@/lib/accounts";
+import { isAdminUsername } from "@/lib/admin";
+import { createDb, users } from "@uttt/db";
+import { eq } from "drizzle-orm";
 import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
@@ -50,14 +53,47 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         token.sub = user.id;
         token.name = user.name;
         token.username = user.username;
+        token.banned = false;
       }
+
+      token.isAdmin = isAdminUsername(token.username);
+
+      if (token.sub && process.env.DATABASE_URL) {
+        try {
+          const db = createDb(process.env.DATABASE_URL);
+          const [row] = await db
+            .select({
+              bannedAt: users.bannedAt,
+              username: users.username,
+              displayName: users.displayName,
+            })
+            .from(users)
+            .where(eq(users.id, token.sub))
+            .limit(1);
+          if (!row || row.bannedAt) {
+            token.banned = true;
+          } else {
+            token.banned = false;
+            token.username = row.username;
+            token.name = row.displayName;
+            token.isAdmin = isAdminUsername(row.username);
+          }
+        } catch (err) {
+          console.error("jwt ban check failed", err);
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {
+      if (token.banned || !token.sub) {
+        return { ...session, user: undefined as unknown as typeof session.user };
+      }
       if (session.user && token.sub) {
         session.user.id = token.sub;
         session.user.name = token.name as string | undefined;
         session.user.username = token.username;
+        session.user.isAdmin = Boolean(token.isAdmin);
       }
       return session;
     },

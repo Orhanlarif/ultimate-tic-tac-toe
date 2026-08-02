@@ -6,7 +6,11 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 
-const SIGN_IN_ERRORS = new Set(["invalidCredentials", "noDatabase"]);
+const SIGN_IN_ERRORS = new Set([
+  "invalidCredentials",
+  "accountBanned",
+  "noDatabase",
+]);
 
 function LoginInner() {
   const t = useTranslations("auth");

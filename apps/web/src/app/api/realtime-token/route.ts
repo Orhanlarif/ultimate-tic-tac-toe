@@ -1,4 +1,6 @@
 import { auth, ensureGuestCookies } from "@/auth";
+import { createDb, users } from "@uttt/db";
+import { eq } from "drizzle-orm";
 import { SignJWT } from "jose";
 import { NextResponse } from "next/server";
 
@@ -15,8 +17,21 @@ export async function GET() {
   let isGuest: boolean;
 
   if (session?.user?.id) {
+    if (process.env.DATABASE_URL) {
+      const db = createDb(process.env.DATABASE_URL);
+      const [row] = await db
+        .select({ bannedAt: users.bannedAt, displayName: users.displayName })
+        .from(users)
+        .where(eq(users.id, session.user.id))
+        .limit(1);
+      if (row?.bannedAt) {
+        return NextResponse.json({ error: "Account banned" }, { status: 403 });
+      }
+      displayName = row?.displayName ?? session.user.name ?? "Player";
+    } else {
+      displayName = session.user.name ?? "Player";
+    }
     sub = session.user.id;
-    displayName = session.user.name ?? "Player";
     isGuest = false;
   } else {
     const guest = await ensureGuestCookies();

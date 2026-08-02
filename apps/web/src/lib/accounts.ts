@@ -16,6 +16,7 @@ export type AccountErrorCode =
   | "invalidName"
   | "emailTaken"
   | "invalidCredentials"
+  | "accountBanned"
   | "unknown";
 
 export class AccountError extends Error {
@@ -59,6 +60,11 @@ function assertValidPassword(password: unknown): asserts password is string {
   if (Buffer.byteLength(password, "utf8") > PASSWORD_MAX_LENGTH) {
     throw new AccountError("longPassword");
   }
+}
+
+export async function hashPassword(password: unknown): Promise<string> {
+  assertValidPassword(password);
+  return bcrypt.hash(password, 12);
 }
 
 function toUsernameBase(displayName: string, email: string) {
@@ -189,6 +195,9 @@ export async function verifyAccount(input: {
   );
   if (!found || !found.passwordHash || !matches || found.isGuest) {
     throw new AccountError("invalidCredentials");
+  }
+  if (found.bannedAt) {
+    throw new AccountError("accountBanned");
   }
 
   return {
