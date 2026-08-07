@@ -178,10 +178,10 @@ export default function FriendsPage() {
               const isOnline = online.includes(f.user.id);
               const waiting = outgoing?.toUserId === f.user.id;
               return (
-                <li key={f.id} className="list-row">
-                  <span style={{ display: "flex", alignItems: "center", gap: "0.7rem" }}>
+                <li key={f.id} className={`list-row ${waiting ? "is-pending" : ""}`}>
+                  <span className="list-row-main">
                     <PlayerAvatar name={f.user.displayName} />
-                    <span>
+                    <span className="list-row-copy">
                       <Link href={`/u/${f.user.username}`}>
                         <strong>{f.user.displayName}</strong>
                       </Link>
@@ -192,8 +192,8 @@ export default function FriendsPage() {
                     </span>
                   </span>
                   {waiting ? (
-                    <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                      <span className="muted">{t("playPending")}</span>
+                    <span className="friend-pending">
+                      <span className="friend-pending-label">{t("playPending")}</span>
                       <button
                         className="btn btn-ghost btn-sm"
                         type="button"

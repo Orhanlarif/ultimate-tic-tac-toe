@@ -2384,12 +2384,60 @@ svg {
   display: flex;
   justify-content: space-between;
   gap: 0.75rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   padding: 0.85rem 0.95rem;
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--surface-2);
+}
+
+.list-row-main {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.list-row-copy {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.list-row-copy strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.friend-pending {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+  padding: 0.2rem 0.25rem 0.2rem 0.65rem;
+  border-radius: 999px;
+  background: var(--warning-soft);
+  border: 1px solid rgba(207, 130, 7, 0.22);
+}
+
+.friend-pending-label {
+  font-size: 0.78rem;
+  font-weight: 650;
+  color: var(--warning);
+  white-space: nowrap;
+}
+
+.friend-pending .btn {
+  flex-shrink: 0;
+}
+
+.list-row.is-pending {
+  border-color: rgba(207, 130, 7, 0.28);
+  background: linear-gradient(180deg, rgba(255, 248, 235, 0.9), var(--surface-2));
 }
 
 /* A play request is only worth sending to someone who is actually there. */
@@ -2900,6 +2948,28 @@ svg {
 
   .vs-pill {
     display: none;
+  }
+
+  .list-row.is-pending {
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+
+  .list-row.is-pending .list-row-main {
+    flex: 1 1 100%;
+  }
+
+  .friend-pending {
+    flex: 1 1 100%;
+    justify-content: space-between;
+    border-radius: 12px;
+    padding: 0.35rem 0.35rem 0.35rem 0.7rem;
+  }
+
+  .friend-pending-label {
+    white-space: normal;
+    line-height: 1.25;
+    min-width: 0;
   }
 
   .game-page {
