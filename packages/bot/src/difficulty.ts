@@ -8,23 +8,29 @@ import type { Difficulty, DifficultyProfile } from "./types.js";
  * `timeMs` together: the budget is set high enough that a fast device spends the
  * whole latency allowance, and a slow device simply returns its deepest
  * completed iteration instead of stalling.
+ *
+ * Human-facing targets:
+ * - Easy — beginner-friendly (misses some meta-blocks, soft blunders)
+ * - Medium — beatable but balanced for a casual who knows the rules
+ * - Hard — strong / competitive
  */
 export const DIFFICULTY_PROFILES: Record<Difficulty, DifficultyProfile> = {
   easy: {
     id: "easy",
     timeMs: 100,
-    maxDepth: 2,
+    maxDepth: 1,
     nodeBudget: 2_500,
-    candidateWindow: 120,
-    candidateTemperature: 0.7,
-    softBlunderRate: 0.22,
-    trustTacticalShortcuts: true,
+    candidateWindow: 180,
+    candidateTemperature: 0.95,
+    softBlunderRate: 0.4,
+    allowUnsafeBlunders: true,
+    trustTacticalShortcuts: false,
     useTt: false,
     useOpenings: false,
     openingPrincipal: false,
     usePvs: false,
     useLmr: false,
-    qDepth: 2,
+    qDepth: 1,
     maxExtensions: 0,
     ttSizePower: 16,
     endgameEmptyAuto: 0,
@@ -33,20 +39,23 @@ export const DIFFICULTY_PROFILES: Record<Difficulty, DifficultyProfile> = {
   },
   medium: {
     id: "medium",
-    timeMs: 500,
-    maxDepth: 6,
-    nodeBudget: 60_000,
-    candidateWindow: 14,
-    candidateTemperature: 0.15,
-    softBlunderRate: 0,
+    timeMs: 400,
+    maxDepth: 3,
+    nodeBudget: 40_000,
+    // Slightly noisier root than the first calibrated Medium — still depth-3
+    // with meta-block shortcuts, just a touch more human-like miss rate.
+    candidateWindow: 40,
+    candidateTemperature: 0.36,
+    softBlunderRate: 0.14,
+    allowUnsafeBlunders: false,
     trustTacticalShortcuts: true,
     useTt: true,
     useOpenings: true,
     openingPrincipal: false,
     usePvs: true,
     useLmr: false,
-    qDepth: 4,
-    maxExtensions: 2,
+    qDepth: 2,
+    maxExtensions: 1,
     ttSizePower: 18,
     endgameEmptyAuto: 0,
     endgameEmptyTry: 0,
@@ -61,6 +70,7 @@ export const DIFFICULTY_PROFILES: Record<Difficulty, DifficultyProfile> = {
     candidateWindow: 0,
     candidateTemperature: 0,
     softBlunderRate: 0,
+    allowUnsafeBlunders: false,
     trustTacticalShortcuts: false,
     useTt: true,
     useOpenings: true,

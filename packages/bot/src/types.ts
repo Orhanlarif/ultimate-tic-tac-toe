@@ -72,14 +72,19 @@ export interface DifficultyProfile {
    */
   candidateTemperature: number;
   /**
-   * Probability of picking a meta-safe near-miss instead of the top move.
+   * Probability of picking a near-miss instead of the top move.
    * Used to give Easy a more human-like error rate.
    */
   softBlunderRate: number;
   /**
+   * When true, soft blunders / candidate pools are not filtered to meta-safe
+   * moves, so a beginner profile can occasionally gift the game.
+   */
+  allowUnsafeBlunders: boolean;
+  /**
    * Play the meta-block / only-safe-move heuristic without searching it.
-   * Shallow profiles need it for correctness; deep ones can verify it instead,
-   * and occasionally find something better.
+   * Medium trusts it; Easy leaves blocks to shallow (noisy) search; Hard
+   * searches the block as an ordering hint and may find better.
    */
   trustTacticalShortcuts: boolean;
   useTt: boolean;

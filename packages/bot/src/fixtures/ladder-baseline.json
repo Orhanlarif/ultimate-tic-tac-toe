@@ -1,57 +1,124 @@
 {
-  "generatedAt": "2026-07-31T15:56:51.150Z",
-  "note": "Measured on the maintainer's machine; ms figures are hardware-specific, nodes and Elo are not.",
+  "generatedAt": "2026-08-07T14:07:12.380Z",
+  "note": "Measured on the maintainer's machine; ms figures are hardware-specific, nodes and Elo are not. Proxy pairings (random/greedy1/shallowNoGuard) gauge human-facing Easy/Medium targets.",
   "positions": 10,
   "pairings": [
     {
       "candidate": "hard",
       "baseline": "medium",
       "games": 20,
-      "wins": 19,
-      "draws": 1,
+      "wins": 20,
+      "draws": 0,
       "losses": 0,
-      "score": 0.9523809523809523,
-      "elo": 520.4119982655923,
-      "eloCiLow": 391.0894421155391,
+      "score": 0.9761904761904762,
+      "elo": 645.113542687894,
+      "eloCiLow": 645.113542687894,
       "eloCiHigh": 645.113542687894
     },
     {
       "candidate": "medium",
       "baseline": "easy",
       "games": 20,
-      "wins": 19,
+      "wins": 18,
       "draws": 1,
-      "losses": 0,
-      "score": 0.9523809523809523,
-      "elo": 520.4119982655923,
-      "eloCiLow": 391.0894421155391,
+      "losses": 1,
+      "score": 0.9047619047619048,
+      "elo": 391.0894421155391,
+      "eloCiLow": 225.70857217542502,
       "eloCiHigh": 645.113542687894
+    },
+    {
+      "candidate": "easy",
+      "baseline": "random",
+      "games": 20,
+      "wins": 19,
+      "draws": 0,
+      "losses": 1,
+      "score": 0.9285714285714286,
+      "elo": 445.5773409227348,
+      "eloCiLow": 279.5880017344076,
+      "eloCiHigh": 645.113542687894
+    },
+    {
+      "candidate": "easy",
+      "baseline": "greedy1",
+      "games": 20,
+      "wins": 3,
+      "draws": 8,
+      "losses": 9,
+      "score": 0.35714285714285715,
+      "elo": -102.10900204132241,
+      "eloCiLow": -225.70857217542505,
+      "eloCiHigh": 0
+    },
+    {
+      "candidate": "medium",
+      "baseline": "greedy1",
+      "games": 20,
+      "wins": 11,
+      "draws": 8,
+      "losses": 1,
+      "score": 0.7380952380952381,
+      "elo": 179.9876034704191,
+      "eloCiLow": 66.99643491750545,
+      "eloCiHigh": 311.2605001534574
+    },
+    {
+      "candidate": "easy",
+      "baseline": "shallowNoGuard",
+      "games": 20,
+      "wins": 13,
+      "draws": 1,
+      "losses": 6,
+      "score": 0.6666666666666666,
+      "elo": 120.41199826559246,
+      "eloCiLow": -16.55707406329004,
+      "eloCiHigh": 279.5880017344076
     }
   ],
+  "gates": [],
   "perMove": {
     "easy": {
-      "avgNodes": 135,
-      "avgMs": 0.3,
-      "maxMs": 2.7,
-      "avgDepth": 1.9,
+      "avgNodes": 36,
+      "avgMs": 0,
+      "maxMs": 2.5,
+      "avgDepth": 1,
       "profileNodeBudget": 2500,
       "profileTimeMs": 100
     },
     "medium": {
-      "avgNodes": 10885,
-      "avgMs": 16.3,
-      "maxMs": 102.2,
-      "avgDepth": 5.43,
-      "profileNodeBudget": 60000,
-      "profileTimeMs": 500
+      "avgNodes": 546,
+      "avgMs": 1.3,
+      "maxMs": 8.9,
+      "avgDepth": 2.85,
+      "profileNodeBudget": 40000,
+      "profileTimeMs": 400
     },
     "hard": {
-      "avgNodes": 1354569,
-      "avgMs": 1219.4,
-      "maxMs": 2001,
-      "avgDepth": 11.27,
+      "avgNodes": 1046594,
+      "avgMs": 1425.5,
+      "maxMs": 2001.2,
+      "avgDepth": 10.9,
       "profileNodeBudget": 2400000,
       "profileTimeMs": 2000
+    }
+  },
+  "profiles": {
+    "easy": {
+      "maxDepth": 1,
+      "softBlunderRate": 0.4,
+      "trustTacticalShortcuts": false,
+      "allowUnsafeBlunders": true
+    },
+    "medium": {
+      "maxDepth": 3,
+      "softBlunderRate": 0.14,
+      "candidateWindow": 40,
+      "note": "Nudged softer after playtest (blunder/window/qDepth); full ship Elo not re-run."
+    },
+    "hard": {
+      "nodeBudget": 2400000,
+      "timeMs": 2000
     }
   }
 }

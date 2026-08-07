@@ -2,9 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import { useFriendChallengesContext } from "@/components/FriendChallengesProvider";
 import { PlayerAvatar } from "@/components/Marks";
-import { useFriendChallenges } from "@/hooks/useFriendChallenges";
 
 interface FriendItem {
   id: string;
@@ -33,16 +33,14 @@ export default function FriendsPage() {
   const [error, setError] = useState<string | null>(null);
   const [unauthorized, setUnauthorized] = useState(false);
 
-  const friendIds = useMemo(() => friends.map((f) => f.user.id), [friends]);
   const {
     online,
-    incoming,
     outgoing,
     notice,
     challenge,
     cancelChallenge,
-    respond,
-  } = useFriendChallenges(friendIds, !unauthorized);
+    refreshFriendIds,
+  } = useFriendChallengesContext();
 
   async function load() {
     try {
@@ -55,6 +53,7 @@ export default function FriendsPage() {
       const data = await res.json();
       setFriends(data.friends ?? []);
       setPending(data.pending ?? []);
+      await refreshFriendIds();
     } catch {
       setError(t("loadError"));
     }
@@ -104,38 +103,6 @@ export default function FriendsPage() {
   return (
     <div className="page-stack">
       <h1 className="page-title">{t("title")}</h1>
-
-      {incoming.length > 0 && (
-        <section className="card challenge-card">
-          <h3 style={{ margin: 0 }}>{t("challengeTitle")}</h3>
-          <ul className="list-stack">
-            {incoming.map((c) => (
-              <li key={c.id} className="list-row">
-                <span style={{ display: "flex", alignItems: "center", gap: "0.7rem" }}>
-                  <PlayerAvatar name={c.from.displayName} />
-                  <span>{t("challengeFrom", { name: c.from.displayName })}</span>
-                </span>
-                <span style={{ display: "flex", gap: "0.35rem" }}>
-                  <button
-                    className="btn btn-primary btn-sm"
-                    type="button"
-                    onClick={() => respond(c.id, true)}
-                  >
-                    {t("accept")}
-                  </button>
-                  <button
-                    className="btn btn-ghost btn-sm"
-                    type="button"
-                    onClick={() => respond(c.id, false)}
-                  >
-                    {t("reject")}
-                  </button>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
 
       <div className="card">
         <div className="form-row">

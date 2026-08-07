@@ -27,6 +27,14 @@ export { TranspositionTable, TT_EXACT, TT_LOWER, TT_UPPER } from "./tt.js";
 export { solveExact, endgameEligible } from "./endgame.js";
 export { EndgameTable } from "./endgameTable.js";
 export { MATE } from "./constants.js";
+export {
+  PROXY_IDS,
+  chooseProxyMove,
+  isProxyId,
+} from "./proxies.js";
+export type { ProxyId } from "./proxies.js";
+export { evaluateCalibrationGates } from "./calibrationGates.js";
+export type { CalibrationPairing, Contender } from "./calibrationGates.js";
 
 /** Mulberry32 seeded PRNG — deterministic across runs. */
 export function createRng(seed: number): () => number {

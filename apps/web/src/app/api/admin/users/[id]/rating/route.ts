@@ -1,6 +1,6 @@
 import { isAdminResult, requireAdminApi, requireDb } from "@/lib/admin";
 import { ratings, seasons, users } from "@uttt/db";
-import { leagueFromRating, PLACEMENT_GAMES } from "@uttt/rating";
+import { DEFAULT_RATING, leagueFromRating, PLACEMENT_GAMES } from "@uttt/rating";
 import { and, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -28,7 +28,7 @@ export async function PATCH(req: Request, ctx: Ctx) {
 
   const { id } = await ctx.params;
 
-  let body: { rating?: number; league?: string; rd?: number };
+  let body: { rating?: number; league?: string };
   try {
     body = await req.json();
   } catch {
@@ -39,14 +39,8 @@ export async function PATCH(req: Request, ctx: Ctx) {
     typeof body.rating === "number" && Number.isFinite(body.rating)
       ? body.rating
       : null;
-  if (ratingValue == null || ratingValue < 0 || ratingValue > 4000) {
+  if (ratingValue == null || ratingValue < 0 || ratingValue > 2000) {
     return NextResponse.json({ error: "Invalid rating" }, { status: 400 });
-  }
-
-  const rdValue =
-    typeof body.rd === "number" && Number.isFinite(body.rd) ? body.rd : undefined;
-  if (rdValue != null && (rdValue < 1 || rdValue > 500)) {
-    return NextResponse.json({ error: "Invalid rd" }, { status: 400 });
   }
 
   let league: League | undefined;
@@ -92,7 +86,6 @@ export async function PATCH(req: Request, ctx: Ctx) {
         .update(ratings)
         .set({
           rating: ratingValue,
-          ...(rdValue != null ? { rd: rdValue } : {}),
           league: resolvedLeague as typeof existing.league,
           updatedAt: new Date(),
         })
@@ -102,7 +95,8 @@ export async function PATCH(req: Request, ctx: Ctx) {
         userId: id,
         seasonId: season.id,
         rating: ratingValue,
-        rd: rdValue ?? 350,
+        rd: DEFAULT_RATING.rd,
+        volatility: DEFAULT_RATING.volatility,
         league: resolvedLeague as "bronze",
         placementGames: PLACEMENT_GAMES,
       });
@@ -112,7 +106,6 @@ export async function PATCH(req: Request, ctx: Ctx) {
       ok: true,
       rating: Math.round(ratingValue),
       league: resolvedLeague,
-      rd: rdValue ?? existing?.rd ?? 350,
     });
   } catch (err) {
     console.error("admin patch rating", err);

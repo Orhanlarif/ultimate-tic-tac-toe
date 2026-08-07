@@ -38,8 +38,6 @@ export async function GET(_req: Request, ctx: Ctx) {
       if (r) {
         rating = {
           rating: Math.round(r.rating),
-          rd: Math.round(r.rd),
-          volatility: r.volatility,
           league: leagueFromRating(r.rating),
           wins: r.wins,
           losses: r.losses,

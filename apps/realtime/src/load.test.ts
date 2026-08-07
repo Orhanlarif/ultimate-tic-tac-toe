@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { MatchmakingQueue, type QueuedPlayer } from "./queue.js";
 
-function qp(id: string, rating = 1500): QueuedPlayer {
+function qp(id: string, rating = 300): QueuedPlayer {
   return {
     userId: id,
     displayName: id,
@@ -22,7 +22,7 @@ describe("queue load", () => {
   it("pairs many ranked players without leftover singles when even", () => {
     const q = new MatchmakingQueue();
     for (let i = 0; i < 40; i++) {
-      q.enqueue(qp(`u${i}`, 1500 + (i % 5) * 10));
+      q.enqueue(qp(`u${i}`, 300 + (i % 5) * 10));
     }
     let pairs = 0;
     while (true) {

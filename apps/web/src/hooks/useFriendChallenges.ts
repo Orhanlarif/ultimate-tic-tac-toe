@@ -35,9 +35,9 @@ interface TokenResponse {
 }
 
 /**
- * A play request is a live conversation, so the friends list keeps its own
- * socket open. It connects in presence mode: it can be challenged and can
- * challenge, but it never claims a seat in a game the user has open elsewhere.
+ * Live play-request / presence socket. Mounted app-wide for signed-in users
+ * so challenges arrive on any page (home, play, …), not only /friends.
+ * Presence mode: can challenge and be challenged, but never claims a game seat.
  */
 export function useFriendChallenges(friendIds: string[], enabled: boolean) {
   const router = useRouter();

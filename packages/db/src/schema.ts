@@ -127,7 +127,7 @@ export const ratings = pgTable(
     seasonId: uuid("season_id")
       .notNull()
       .references(() => seasons.id, { onDelete: "cascade" }),
-    rating: doublePrecision("rating").notNull().default(1500),
+    rating: doublePrecision("rating").notNull().default(300),
     rd: doublePrecision("rd").notNull().default(350),
     volatility: doublePrecision("volatility").notNull().default(0.06),
     league: leagueEnum("league").notNull().default("bronze"),

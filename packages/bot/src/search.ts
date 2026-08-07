@@ -349,7 +349,9 @@ function selectByDifficulty(
     return critical[0]?.move ?? bestMove;
   }
 
-  const safe = filterUnsafeMetaLosses(state, rootSide, scored);
+  const safe = profile.allowUnsafeBlunders
+    ? scored
+    : filterUnsafeMetaLosses(state, rootSide, scored);
   const pool = safe.length > 0 ? safe : scored;
 
   if (profile.candidateWindow <= 0 && profile.softBlunderRate <= 0) {
@@ -372,7 +374,8 @@ function selectByDifficulty(
     rng() < profile.softBlunderRate &&
     Math.abs(bestScore) < MATE - 100
   ) {
-    // Meta-safe near-miss: expand the window and bias away from the top move.
+    // Near-miss: expand the window and bias away from the top move.
+    // Beginner profiles may include meta-unsafe gifts when allowUnsafeBlunders.
     const blunderWindow = Math.max(window, 160);
     const soft = pool.filter((s) => top - s.score <= blunderWindow);
     if (soft.length > 1) {

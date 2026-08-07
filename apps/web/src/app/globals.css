@@ -378,9 +378,6 @@ svg {
   max-width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  /* Kill Safari/iOS search-field chrome that breaks padding and width. */
-  appearance: none;
-  -webkit-appearance: none;
 }
 
 .admin-search-btn {
@@ -403,7 +400,6 @@ svg {
 
 .admin-table-scroll {
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
 .admin-back {
@@ -468,124 +464,6 @@ svg {
 
 .admin-col-email {
   word-break: break-all;
-}
-
-.admin-mobile-only {
-  display: none;
-}
-
-.admin-user-cards {
-  list-style: none;
-  margin: 0;
-  padding: 0.55rem;
-  display: grid;
-  gap: 0.55rem;
-}
-
-.admin-user-card {
-  display: grid;
-  gap: 0.45rem;
-  padding: 0.95rem 1rem;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface-2);
-  color: inherit;
-  text-decoration: none;
-  transition: border-color 0.15s ease, background 0.15s ease;
-}
-
-.admin-user-card:hover {
-  border-color: rgba(47, 107, 255, 0.35);
-  background: var(--cell-hover);
-}
-
-.admin-user-card-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.65rem;
-}
-
-.admin-user-card-id {
-  display: grid;
-  gap: 0.15rem;
-  min-width: 0;
-}
-
-.admin-user-card-id strong {
-  font-size: 1.02rem;
-  letter-spacing: -0.02em;
-}
-
-.admin-user-card-email {
-  font-size: 0.84rem;
-  word-break: break-all;
-}
-
-.admin-user-card-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem 0.85rem;
-  font-size: 0.86rem;
-}
-
-@media (max-width: 720px) {
-  .admin-desktop-only {
-    display: none !important;
-  }
-
-  .admin-mobile-only {
-    display: grid;
-  }
-
-  .admin-search {
-    grid-template-columns: 1fr;
-    padding: 0.9rem;
-  }
-
-  .admin-search-input,
-  .admin-search-btn,
-  .admin-action-btn,
-  .admin-page .input,
-  .admin-page .select {
-    width: 100%;
-    max-width: 100%;
-    /* Prevents iOS focus zoom that feels like a broken layout. */
-    font-size: 16px;
-  }
-
-  .admin-search-btn {
-    min-height: 48px;
-  }
-
-  .admin-stat-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.85rem;
-  }
-
-  .admin-stat-grid .stat-item strong {
-    font-size: 1.2rem;
-  }
-
-  .admin-user-head {
-    align-items: flex-start;
-  }
-
-  .admin-page .page-title {
-    font-size: clamp(1.45rem, 7vw, 1.9rem);
-  }
-
-  .admin-form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .admin-card {
-    padding: 1rem;
-  }
-
-  .list-row {
-    align-items: flex-start;
-  }
 }
 
 .form-ok {
@@ -840,7 +718,7 @@ svg {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 40;
+  z-index: 50;
   border-bottom: 1px solid transparent;
   background: transparent;
   transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
@@ -1129,7 +1007,7 @@ svg {
   position: absolute;
   top: calc(100% + 0.55rem);
   right: 0;
-  min-width: 232px;
+  min-width: 268px;
   padding: 0.45rem;
   border-radius: 16px;
   border: 1px solid var(--line);
@@ -1223,6 +1101,7 @@ svg {
 }
 
 .header-avatar {
+  position: relative;
   padding: 0;
   border: 0;
   background: transparent;
@@ -2533,7 +2412,7 @@ svg {
   background: var(--accent2);
 }
 
-/* Someone is waiting on an answer, so it sits above the rest of the page. */
+/* Play-request surfaces: toast card + quiet account indicators. */
 .challenge-card {
   display: grid;
   gap: 0.85rem;
@@ -2543,6 +2422,170 @@ svg {
 
 .challenge-notice {
   margin: 0;
+}
+
+.challenge-toast {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 60;
+  display: grid;
+  gap: 0.65rem;
+  width: min(22rem, calc(100vw - 2rem));
+  pointer-events: none;
+}
+
+.challenge-toast-card {
+  pointer-events: auto;
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem 1.05rem;
+  border-radius: 18px;
+  border: 1px solid rgba(13, 169, 122, 0.28);
+  background:
+    linear-gradient(165deg, rgba(232, 250, 242, 0.97), rgba(255, 255, 255, 0.96));
+  box-shadow: 0 10px 36px -14px rgba(17, 26, 51, 0.35), var(--shadow-soft);
+  backdrop-filter: blur(16px);
+  animation: challenge-toast-in 0.32s var(--ease) both;
+}
+
+.challenge-toast-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+.challenge-toast-copy {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.challenge-toast-label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent2);
+}
+
+.challenge-toast-copy p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: var(--text-strong);
+}
+
+.challenge-toast-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.challenge-toast-actions .btn {
+  flex: 1;
+}
+
+@keyframes challenge-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.7rem) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.challenge-menu {
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.35rem 0.25rem 0.55rem;
+  margin: 0 0.1rem 0.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.challenge-menu-item {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.55rem 0.5rem;
+  border-radius: 12px;
+  background: var(--accent2-soft);
+  border: 1px solid rgba(13, 169, 122, 0.2);
+}
+
+.challenge-menu-copy {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.challenge-menu-copy > span {
+  display: grid;
+  gap: 0.05rem;
+  min-width: 0;
+  font-size: 0.86rem;
+}
+
+.challenge-menu-copy strong {
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--accent2);
+}
+
+.challenge-menu-actions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.challenge-menu-actions .btn {
+  flex: 1;
+}
+
+.nav-badge {
+  display: inline-grid;
+  place-items: center;
+  box-sizing: border-box;
+  width: 1.2rem;
+  height: 1.2rem;
+  padding: 0;
+  margin-left: 0.1rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.account-trigger-avatar,
+.header-avatar {
+  position: relative;
+  display: inline-flex;
+  line-height: 0;
+}
+
+.account-notify-dot,
+.header-avatar-dot {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--accent);
+  border: 2px solid var(--surface);
+  pointer-events: none;
+  box-shadow: 0 0 0 1px rgba(240, 71, 93, 0.15);
+}
+
+.header-avatar-dot {
+  border-color: var(--bg);
 }
 
 .stat-grid {

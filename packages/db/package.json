@@ -17,6 +17,7 @@
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate",
     "push": "drizzle-kit push",
+    "reset-ratings": "node scripts/reset-ratings.mjs",
     "lint": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {

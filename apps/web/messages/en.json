@@ -43,7 +43,7 @@
     "legendHint": "Legal move hint",
     "legendLast": "Last move",
     "rankedRequiresAuth": "Ranked requires signing in to an account.",
-    "specNote": "5 minutes plus 2 seconds per move · Ranked matches are scored with Glicko-2 · Every move is validated on the server"
+    "specNote": "5 minutes plus 2 seconds per move · Ranked matches use a fixed ±40 rating system · Every move is validated on the server"
   },
   "play": {
     "searching": "Finding opponent…",
@@ -268,7 +268,6 @@
     "savePassword": "Set password",
     "editRating": "Edit rating",
     "ratingValue": "Rating",
-    "rdValue": "RD (optional)",
     "leagueValue": "League",
     "leagueAuto": "Auto from rating",
     "saveRating": "Save rating",

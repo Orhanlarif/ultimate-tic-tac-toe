@@ -43,7 +43,7 @@
     "legendHint": "Geçerli hamle ipucu",
     "legendLast": "Son hamle",
     "rankedRequiresAuth": "Dereceli oynamak için hesabınla giriş yapman gerekir.",
-    "specNote": "Maç süresi 5 dakika + hamle başına 2 saniye · Dereceli maçlar Glicko-2 ile puanlanır · Tüm hamleler sunucuda doğrulanır"
+    "specNote": "Maç süresi 5 dakika + hamle başına 2 saniye · Dereceli maçlar sabit ±40 reyting ile puanlanır · Tüm hamleler sunucuda doğrulanır"
   },
   "play": {
     "searching": "Rakip aranıyor…",
@@ -268,7 +268,6 @@
     "savePassword": "Şifreyi kaydet",
     "editRating": "Reyting düzenle",
     "ratingValue": "Reyting",
-    "rdValue": "RD (isteğe bağlı)",
     "leagueValue": "Lig",
     "leagueAuto": "Reytingden otomatik",
     "saveRating": "Reytingi kaydet",

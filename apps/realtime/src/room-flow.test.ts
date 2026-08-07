@@ -10,7 +10,7 @@ async function token(sub: string, name: string) {
   return new SignJWT({
     displayName: name,
     isGuest: true,
-    rating: 1500,
+    rating: 300,
     rd: 350,
     volatility: 0.06,
     league: "bronze",

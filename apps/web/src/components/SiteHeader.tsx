@@ -21,6 +21,9 @@ import {
   IconUsers,
   IconZap,
 } from "@/components/icons";
+import { ChallengeMenuItems } from "@/components/ChallengeMenuItems";
+import { isMatchFocusPath } from "@/components/ChallengeToast";
+import { useFriendChallengesContext } from "@/components/FriendChallengesProvider";
 import { PlayerAvatar } from "@/components/Marks";
 
 export function SiteHeader() {
@@ -30,6 +33,9 @@ export function SiteHeader() {
   const router = useRouter();
   const pathname = usePathname();
   const { data: session, status } = useSession();
+  const { incoming } = useFriendChallengesContext();
+  const challengeCount = incoming.length;
+  const matchFocus = isMatchFocusPath(pathname);
   const [scrolled, setScrolled] = useState(false);
   const [playOpen, setPlayOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
@@ -203,6 +209,11 @@ export function SiteHeader() {
             >
               <IconUsers />
               {t("friends")}
+              {challengeCount > 0 && !matchFocus ? (
+                <span className="nav-badge" aria-label={String(challengeCount)}>
+                  {challengeCount}
+                </span>
+              ) : null}
             </Link>
           </nav>
 
@@ -230,7 +241,12 @@ export function SiteHeader() {
                     aria-haspopup="menu"
                     onClick={() => setAccountOpen((v) => !v)}
                   >
-                    <PlayerAvatar name={displayName} />
+                    <span className="account-trigger-avatar">
+                      <PlayerAvatar name={displayName} />
+                      {challengeCount > 0 ? (
+                        <span className="account-notify-dot" aria-hidden="true" />
+                      ) : null}
+                    </span>
                     <span className="account-trigger-name">{displayName}</span>
                     <IconChevronDown />
                   </button>
@@ -242,6 +258,7 @@ export function SiteHeader() {
                         {username ? <span className="muted">@{username}</span> : null}
                       </span>
                     </div>
+                    <ChallengeMenuItems onDone={() => setAccountOpen(false)} />
                     {profileHref ? (
                       <Link
                         className="account-menu-item"
@@ -299,6 +316,7 @@ export function SiteHeader() {
                 onClick={() => setMobileOpen(true)}
               >
                 <PlayerAvatar name={displayName} />
+                {challengeCount > 0 ? <span className="header-avatar-dot" aria-hidden="true" /> : null}
               </button>
             ) : (
               <button
@@ -384,6 +402,11 @@ export function SiteHeader() {
                 <IconUsers />
               </span>
               {t("friends")}
+              {challengeCount > 0 && !matchFocus ? (
+                <span className="nav-badge" aria-label={String(challengeCount)}>
+                  {challengeCount}
+                </span>
+              ) : null}
             </Link>
             {isAdmin ? (
               <Link href="/admin" onClick={() => setMobileOpen(false)}>

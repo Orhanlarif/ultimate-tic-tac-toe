@@ -2,44 +2,57 @@ import type { LeagueTier } from "@uttt/contracts";
 
 export interface RatingState {
   rating: number;
+  /** Kept for DB/API compatibility; unused by the fixed-delta system. */
   rd: number;
+  /** Kept for DB/API compatibility; unused by the fixed-delta system. */
   volatility: number;
 }
 
+/** Everyone starts here. */
 export const DEFAULT_RATING: RatingState = {
-  rating: 1500,
+  rating: 300,
   rd: 350,
   volatility: 0.06,
 };
 
 export const PLACEMENT_GAMES = 5;
 
-const TAU = 0.5;
-const EPSILON = 0.000001;
-const SCALE = 173.7178;
+/** Points exchanged between equal players on a decisive result. */
+export const BASE_CHANGE = 40;
 
-function toGlicko2(r: RatingState) {
-  return {
-    mu: (r.rating - 1500) / SCALE,
-    phi: r.rd / SCALE,
-    sigma: r.volatility,
-  };
+/** Both players receive this on a draw. */
+export const DRAW_CHANGE = 20;
+
+/**
+ * Extra points per 1 rating difference vs opponent (3 per 100).
+ * Capped so underdog wins are at most +45 and favorites at most +35.
+ */
+export const DIFF_FACTOR = 0.03;
+export const MAX_DIFF_ADJ = 5;
+
+function clampAdj(value: number): number {
+  return Math.max(-MAX_DIFF_ADJ, Math.min(MAX_DIFF_ADJ, value));
 }
 
-function fromGlicko2(mu: number, phi: number, sigma: number): RatingState {
-  return {
-    rating: mu * SCALE + 1500,
-    rd: phi * SCALE,
-    volatility: sigma,
-  };
-}
+/**
+ * Rating change for one player after a game.
+ * score: 1 win, 0.5 draw, 0 loss
+ *
+ * Equal players: ±40. Diff adjusts by ~3 per 100 rating, capped at ±5
+ * (so max upset is +45/−45 and max expected win is +35/−35). Draws: +20 each.
+ */
+export function ratingChange(
+  playerRating: number,
+  opponentRating: number,
+  score: 0 | 0.5 | 1,
+): number {
+  if (score === 0.5) return DRAW_CHANGE;
 
-function g(phi: number): number {
-  return 1 / Math.sqrt(1 + (3 * phi * phi) / (Math.PI * Math.PI));
-}
-
-function E(mu: number, muJ: number, phiJ: number): number {
-  return 1 / (1 + Math.exp(-g(phiJ) * (mu - muJ)));
+  const adj = clampAdj(
+    Math.round((opponentRating - playerRating) * DIFF_FACTOR),
+  );
+  if (score === 1) return BASE_CHANGE + adj;
+  return -(BASE_CHANGE - adj);
 }
 
 /**
@@ -51,59 +64,12 @@ export function updateRating(
   opponent: RatingState,
   score: 0 | 0.5 | 1,
 ): RatingState {
-  const p = toGlicko2(player);
-  const o = toGlicko2(opponent);
-
-  const gPhi = g(o.phi);
-  const e = E(p.mu, o.mu, o.phi);
-  const v = 1 / (gPhi * gPhi * e * (1 - e));
-  const delta = v * gPhi * (score - e);
-
-  const a = Math.log(p.sigma * p.sigma);
-  const phi = p.phi;
-  const tau = TAU;
-
-  function f(x: number): number {
-    const ex = Math.exp(x);
-    const num = ex * (delta * delta - phi * phi - v - ex);
-    const den = 2 * (phi * phi + v + ex) ** 2;
-    return num / den - (x - a) / (tau * tau);
-  }
-
-  let A = a;
-  let B: number;
-  if (delta * delta > phi * phi + v) {
-    B = Math.log(delta * delta - phi * phi - v);
-  } else {
-    let k = 1;
-    B = a - k * tau;
-    while (f(B) < 0) {
-      k += 1;
-      B = a - k * tau;
-    }
-  }
-
-  let fA = f(A);
-  let fB = f(B);
-  while (Math.abs(B - A) > EPSILON) {
-    const C = A + ((A - B) * fA) / (fB - fA);
-    const fC = f(C);
-    if (fC * fB <= 0) {
-      A = B;
-      fA = fB;
-    } else {
-      fA /= 2;
-    }
-    B = C;
-    fB = fC;
-  }
-
-  const sigmaPrime = Math.exp(A / 2);
-  const phiStar = Math.sqrt(phi * phi + sigmaPrime * sigmaPrime);
-  const phiPrime = 1 / Math.sqrt(1 / (phiStar * phiStar) + 1 / v);
-  const muPrime = p.mu + phiPrime * phiPrime * gPhi * (score - e);
-
-  return fromGlicko2(muPrime, phiPrime, sigmaPrime);
+  const delta = ratingChange(player.rating, opponent.rating, score);
+  return {
+    rating: Math.max(0, player.rating + delta),
+    rd: player.rd,
+    volatility: player.volatility,
+  };
 }
 
 export function scoreFromResult(
@@ -114,13 +80,14 @@ export function scoreFromResult(
   return result === youAre ? 1 : 0;
 }
 
+/** League bands scaled for a 300 starting rating. */
 export function leagueFromRating(rating: number): LeagueTier {
-  if (rating < 1200) return "bronze";
-  if (rating < 1400) return "silver";
-  if (rating < 1600) return "gold";
-  if (rating < 1800) return "platinum";
-  if (rating < 2000) return "diamond";
-  if (rating < 2200) return "master";
+  if (rating < 150) return "bronze";
+  if (rating < 250) return "silver";
+  if (rating < 350) return "gold";
+  if (rating < 450) return "platinum";
+  if (rating < 550) return "diamond";
+  if (rating < 700) return "master";
   return "grandmaster";
 }
 
@@ -133,7 +100,13 @@ export function applyMutualUpdate(
   b: RatingState,
   resultForA: 0 | 0.5 | 1,
 ): { a: RatingState; b: RatingState } {
-  const resultForB = (1 - resultForA) as 0 | 0.5 | 1;
+  if (resultForA === 0.5) {
+    return {
+      a: updateRating(a, b, 0.5),
+      b: updateRating(b, a, 0.5),
+    };
+  }
+  const resultForB = (1 - resultForA) as 0 | 1;
   return {
     a: updateRating(a, b, resultForA),
     b: updateRating(b, a, resultForB),

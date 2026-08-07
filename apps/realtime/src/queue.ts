@@ -90,7 +90,8 @@ export class MatchmakingQueue {
     for (let i = 0; i < list.length; i++) {
       const a = list[i]!;
       const waited = now - a.joinedAt;
-      const window = 100 + Math.floor(waited / 5000) * 50 + a.expandMs;
+      // 300-scale ladder: start ±60, widen by 30 every 5s of wait.
+      const window = 60 + Math.floor(waited / 5000) * 30 + a.expandMs;
       for (let j = i + 1; j < list.length; j++) {
         const b = list[j]!;
         if (Math.abs(a.rating - b.rating) <= window) {

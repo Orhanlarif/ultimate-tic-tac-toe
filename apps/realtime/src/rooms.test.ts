@@ -13,7 +13,7 @@ function mp(userId: string, socketId: string): MatchPlayer {
     userId,
     displayName: userId.toUpperCase(),
     isGuest: true,
-    rating: 1500,
+    rating: 300,
     rd: 350,
     volatility: 0.06,
     league: "bronze",

@@ -94,87 +94,50 @@ export function AdminUsersList() {
         ) : users.length === 0 ? (
           <div className="empty-state">{t("empty")}</div>
         ) : (
-          <>
-            <div className="admin-table-scroll admin-desktop-only">
-              <table className="data-table leaderboard-table">
-                <thead>
-                  <tr>
-                    <th>{t("username")}</th>
-                    <th>{t("displayName")}</th>
-                    <th>{t("email")}</th>
-                    <th className="col-num">{t("rating")}</th>
-                    <th className="col-league">{t("league")}</th>
-                    <th>{t("status")}</th>
-                    <th>{t("created")}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map((u) => (
-                    <tr key={u.id}>
-                      <td>
-                        <Link href={`/admin/users/${u.id}`}>
-                          <strong>@{u.username}</strong>
-                        </Link>
-                      </td>
-                      <td>{u.displayName}</td>
-                      <td className="muted admin-col-email">{u.email ?? "—"}</td>
-                      <td className="col-num col-rating">
-                        {u.rating != null ? u.rating : "—"}
-                      </td>
-                      <td className="col-league">
-                        {u.league ? leagueT(u.league as "bronze") : "—"}
-                      </td>
-                      <td>
-                        {u.bannedAt ? (
-                          <span className="badge badge-danger">{t("banned")}</span>
-                        ) : (
-                          <span className="badge">{t("active")}</span>
-                        )}
-                      </td>
-                      <td className="muted">
-                        {new Date(u.createdAt).toLocaleDateString()}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <ul className="admin-user-cards admin-mobile-only">
-              {users.map((u) => (
-                <li key={u.id}>
-                  <Link className="admin-user-card" href={`/admin/users/${u.id}`}>
-                    <div className="admin-user-card-top">
-                      <div className="admin-user-card-id">
-                        <strong>{u.displayName}</strong>
-                        <span className="muted">@{u.username}</span>
-                      </div>
+          <div className="admin-table-scroll">
+            <table className="data-table leaderboard-table">
+              <thead>
+                <tr>
+                  <th>{t("username")}</th>
+                  <th>{t("displayName")}</th>
+                  <th>{t("email")}</th>
+                  <th className="col-num">{t("rating")}</th>
+                  <th className="col-league">{t("league")}</th>
+                  <th>{t("status")}</th>
+                  <th>{t("created")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((u) => (
+                  <tr key={u.id}>
+                    <td>
+                      <Link href={`/admin/users/${u.id}`}>
+                        <strong>@{u.username}</strong>
+                      </Link>
+                    </td>
+                    <td>{u.displayName}</td>
+                    <td className="muted admin-col-email">{u.email ?? "—"}</td>
+                    <td className="col-num col-rating">
+                      {u.rating != null ? u.rating : "—"}
+                    </td>
+                    <td className="col-league">
+                      {u.league ? leagueT(u.league as "bronze") : "—"}
+                    </td>
+                    <td>
                       {u.bannedAt ? (
                         <span className="badge badge-danger">{t("banned")}</span>
                       ) : (
                         <span className="badge">{t("active")}</span>
                       )}
-                    </div>
-                    {u.email ? (
-                      <span className="admin-user-card-email muted">{u.email}</span>
-                    ) : null}
-                    <div className="admin-user-card-meta">
-                      <span>
-                        {t("rating")}:{" "}
-                        <strong>{u.rating != null ? u.rating : "—"}</strong>
-                      </span>
-                      <span>
-                        {u.league ? leagueT(u.league as "bronze") : "—"}
-                      </span>
-                      <span className="muted">
-                        {new Date(u.createdAt).toLocaleDateString()}
-                      </span>
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </>
+                    </td>
+                    <td className="muted">
+                      {new Date(u.createdAt).toLocaleDateString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
 

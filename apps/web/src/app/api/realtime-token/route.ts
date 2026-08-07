@@ -43,10 +43,10 @@ export async function GET() {
   const token = await new SignJWT({
     displayName,
     isGuest,
-    rating: 1500,
+    rating: 300,
     rd: 350,
     volatility: 0.06,
-    league: "bronze",
+    league: "gold",
     placementGames: 0,
   })
     .setProtectedHeader({ alg: "HS256" })

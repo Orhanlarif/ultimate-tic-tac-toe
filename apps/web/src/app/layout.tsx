@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import type { Metadata, Viewport } from "next";
 import { Inter, Outfit } from "next/font/google";
+import { ChallengeToast } from "@/components/ChallengeToast";
 import { Providers } from "@/components/Providers";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -75,6 +76,7 @@ export default async function RootLayout({
               <SiteHeader />
               <main className="main-content">{children}</main>
               <SiteFooter />
+              <ChallengeToast />
             </div>
           </NextIntlClientProvider>
         </Providers>

@@ -18,7 +18,6 @@ type UserDetail = {
 
 type RatingDetail = {
   rating: number;
-  rd: number;
   league: string;
   wins: number;
   losses: number;
@@ -64,7 +63,6 @@ export function AdminUserDetail({ userId }: { userId: string }) {
   const [banReason, setBanReason] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [ratingInput, setRatingInput] = useState("");
-  const [rdInput, setRdInput] = useState("");
   const [leagueInput, setLeagueInput] = useState("");
 
   const load = useCallback(async () => {
@@ -77,8 +75,7 @@ export function AdminUserDetail({ userId }: { userId: string }) {
       setUser(data.user);
       setRating(data.rating);
       setMatches(data.matches ?? []);
-      setRatingInput(data.rating ? String(data.rating.rating) : "1500");
-      setRdInput(data.rating ? String(data.rating.rd) : "");
+      setRatingInput(data.rating ? String(data.rating.rating) : "300");
       setLeagueInput(data.rating?.league ?? "");
       setBanReason(data.user?.banReason ?? "");
     } catch {
@@ -168,11 +165,10 @@ export function AdminUserDetail({ userId }: { userId: string }) {
   async function onSaveRating(e: React.FormEvent) {
     e.preventDefault();
     const ratingNum = Number(ratingInput);
-    const body: { rating: number; league?: string; rd?: number } = {
+    const body: { rating: number; league?: string } = {
       rating: ratingNum,
     };
     if (leagueInput) body.league = leagueInput;
-    if (rdInput.trim()) body.rd = Number(rdInput);
     const ok = await runAction(
       () =>
         fetch(`/api/admin/users/${userId}/rating`, {
@@ -348,23 +344,11 @@ export function AdminUserDetail({ userId }: { userId: string }) {
                 className="input"
                 type="number"
                 min={0}
-                max={4000}
+                max={2000}
                 step={1}
                 value={ratingInput}
                 onChange={(e) => setRatingInput(e.target.value)}
                 required
-              />
-            </label>
-            <label className="form-field">
-              <span>{t("rdValue")}</span>
-              <input
-                className="input"
-                type="number"
-                min={1}
-                max={500}
-                step={1}
-                value={rdInput}
-                onChange={(e) => setRdInput(e.target.value)}
               />
             </label>
             <label className="form-field">

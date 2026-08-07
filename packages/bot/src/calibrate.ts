@@ -56,7 +56,7 @@ function runFullArena(mode: "quick" | "full"): void {
   for (const d of ["easy", "medium", "hard"] as const) {
     const p = DIFFICULTY_PROFILES[d];
     console.log(
-      `  ${d}: depth=${p.maxDepth} nodes=${p.nodeBudget} pvs=${p.usePvs} lmr=${p.useLmr} q=${p.qDepth} eg=${p.endgameEmptyAuto}/${p.endgameEmptyTry} blunder=${p.softBlunderRate} bookPrincipal=${p.openingPrincipal}`,
+      `  ${d}: depth=${p.maxDepth} nodes=${p.nodeBudget} pvs=${p.usePvs} lmr=${p.useLmr} q=${p.qDepth} eg=${p.endgameEmptyAuto}/${p.endgameEmptyTry} blunder=${p.softBlunderRate} shortcuts=${p.trustTacticalShortcuts} unsafeBlunders=${p.allowUnsafeBlunders} bookPrincipal=${p.openingPrincipal}`,
     );
   }
 }

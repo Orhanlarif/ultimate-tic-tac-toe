@@ -22,7 +22,7 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="site-footer-meta">
-          <span>5+2 · Glicko-2</span>
+          <span>5+2 · Rating</span>
           <Link href="/leaderboard">{t("leaderboard")}</Link>
           <Link href="/play/bot">{t("playBot")}</Link>
         </div>

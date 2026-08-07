@@ -1,5 +1,6 @@
 /**
- * Ladder calibration at the profiles players actually get.
+ * Ladder calibration at the profiles players actually get, plus weak human
+ * proxies so Easy/Medium can be judged against beginner-facing baselines.
  *
  * `calibrate.ts` scales budgets down so it can run quickly, which means it never
  * measures the shipped bot. This script does the opposite: full profiles, fewer
@@ -13,7 +14,17 @@ import { fileURLToPath } from "node:url";
 import { applyMove, applyMoves, type GameState } from "@uttt/game-engine";
 import { loadArenaPositions } from "../src/arena.js";
 import { summarizePairs } from "../src/arenaStats.js";
-import { chooseMoveDetailed, DIFFICULTY_PROFILES, type Difficulty } from "../src/index.js";
+import {
+  chooseMoveDetailed,
+  DIFFICULTY_PROFILES,
+  evaluateCalibrationGates,
+  type Difficulty,
+} from "../src/index.js";
+import {
+  chooseProxyMove,
+  isProxyId,
+} from "../src/proxies.js";
+import type { Contender } from "../src/calibrationGates.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -35,31 +46,61 @@ const costs: Record<Difficulty, Cost> = {
   hard: emptyCost(),
 };
 
+function isDifficulty(c: Contender): c is Difficulty {
+  return c === "easy" || c === "medium" || c === "hard";
+}
+
+function pickMove(
+  state: GameState,
+  contender: Contender,
+  seed: number,
+): { move: ReturnType<typeof chooseProxyMove>; nodes: number; ms: number; depth: number } {
+  if (isProxyId(contender)) {
+    return {
+      move: chooseProxyMove(state, contender, seed),
+      nodes: 0,
+      ms: 0,
+      depth: 0,
+    };
+  }
+  const result = chooseMoveDetailed(state, {
+    difficulty: contender,
+    seed,
+    useOpenings: false,
+    gameId: `ship-${seed}-${contender}`,
+  });
+  return {
+    move: result.move,
+    nodes: result.info.nodes,
+    ms: result.info.timeMs,
+    depth: result.info.depth,
+  };
+}
+
 function playFrom(
   start: GameState,
-  x: Difficulty,
-  o: Difficulty,
+  x: Contender,
+  o: Contender,
   seed: number,
 ): "X" | "O" | null {
   let state = start;
   let guard = 0;
   while (state.status === "in_progress" && guard < 90) {
-    const difficulty = state.currentPlayer === "X" ? x : o;
-    const result = chooseMoveDetailed(state, {
-      difficulty,
-      seed: seed + guard * 9973,
-      useOpenings: false,
-      gameId: `ship-${seed}-${difficulty}`,
-    });
-    const cost = costs[difficulty];
-    cost.moves += 1;
-    cost.nodes += result.info.nodes;
-    cost.ms += result.info.timeMs;
-    cost.depth += result.info.depth;
-    if (result.info.timeMs > cost.maxMs) cost.maxMs = result.info.timeMs;
+    const contender = state.currentPlayer === "X" ? x : o;
+    const picked = pickMove(state, contender, seed + guard * 9973);
+    if (isDifficulty(contender)) {
+      const cost = costs[contender];
+      cost.moves += 1;
+      cost.nodes += picked.nodes;
+      cost.ms += picked.ms;
+      cost.depth += picked.depth;
+      if (picked.ms > cost.maxMs) cost.maxMs = picked.ms;
+    }
 
-    const next = applyMove(state, result.move);
-    if (!next.ok) throw new Error(`illegal move from ${difficulty}: ${next.error}`);
+    const next = applyMove(state, picked.move);
+    if (!next.ok) {
+      throw new Error(`illegal move from ${contender}: ${next.error}`);
+    }
     state = next.state;
     guard += 1;
   }
@@ -67,8 +108,8 @@ function playFrom(
 }
 
 interface PairingResult {
-  candidate: Difficulty;
-  baseline: Difficulty;
+  candidate: Contender;
+  baseline: Contender;
   games: number;
   wins: number;
   draws: number;
@@ -80,8 +121,8 @@ interface PairingResult {
 }
 
 function runPairing(
-  candidate: Difficulty,
-  baseline: Difficulty,
+  candidate: Contender,
+  baseline: Contender,
   starts: GameState[],
   seed: number,
 ): PairingResult {
@@ -149,6 +190,10 @@ function main(): void {
   const pairings = [
     runPairing("hard", "medium", starts, 101),
     runPairing("medium", "easy", starts, 202),
+    runPairing("easy", "random", starts, 303),
+    runPairing("easy", "greedy1", starts, 404),
+    runPairing("medium", "greedy1", starts, 505),
+    runPairing("easy", "shallowNoGuard", starts, 606),
   ];
 
   console.log("\nLadder:");
@@ -158,6 +203,14 @@ function main(): void {
         `elo=${p.elo.toFixed(0)} ci=[${p.eloCiLow.toFixed(0)}, ${p.eloCiHigh.toFixed(0)}] ` +
         `W-D-L=${p.wins}-${p.draws}-${p.losses}`,
     );
+  }
+
+  const warnings = evaluateCalibrationGates(pairings);
+  if (warnings.length > 0) {
+    console.log("\nCalibration warnings:");
+    for (const w of warnings) console.log(`  ! ${w}`);
+  } else {
+    console.log("\nCalibration gates: ok");
   }
 
   console.log("\nPer-move cost:");
@@ -182,10 +235,28 @@ function main(): void {
 
   const out = {
     generatedAt: new Date().toISOString(),
-    note: "Measured on the maintainer's machine; ms figures are hardware-specific, nodes and Elo are not.",
+    note: "Measured on the maintainer's machine; ms figures are hardware-specific, nodes and Elo are not. Proxy pairings (random/greedy1/shallowNoGuard) gauge human-facing Easy/Medium targets.",
     positions: starts.length,
     pairings,
+    gates: warnings,
     perMove,
+    profiles: {
+      easy: {
+        maxDepth: DIFFICULTY_PROFILES.easy.maxDepth,
+        softBlunderRate: DIFFICULTY_PROFILES.easy.softBlunderRate,
+        trustTacticalShortcuts: DIFFICULTY_PROFILES.easy.trustTacticalShortcuts,
+        allowUnsafeBlunders: DIFFICULTY_PROFILES.easy.allowUnsafeBlunders,
+      },
+      medium: {
+        maxDepth: DIFFICULTY_PROFILES.medium.maxDepth,
+        softBlunderRate: DIFFICULTY_PROFILES.medium.softBlunderRate,
+        candidateWindow: DIFFICULTY_PROFILES.medium.candidateWindow,
+      },
+      hard: {
+        nodeBudget: DIFFICULTY_PROFILES.hard.nodeBudget,
+        timeMs: DIFFICULTY_PROFILES.hard.timeMs,
+      },
+    },
   };
   const path = join(__dirname, "..", "src", "fixtures", "ladder-baseline.json");
   writeFileSync(path, `${JSON.stringify(out, null, 2)}\n`);

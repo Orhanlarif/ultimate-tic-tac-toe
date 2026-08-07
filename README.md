@@ -1,6 +1,6 @@
 # Ultimate Tic Tac Toe
 
-Web-based competitive Ultimate Tic Tac Toe with random matchmaking, Glicko-2 ranked ladder, guest casual play, profiles, friends, and a playful TR/EN UI.
+Web-based competitive Ultimate Tic Tac Toe with random matchmaking, fixed-delta ranked ladder, guest casual play, profiles, friends, and a playful TR/EN UI.
 
 ## Stack
 
@@ -9,13 +9,13 @@ Web-based competitive Ultimate Tic Tac Toe with random matchmaking, Glicko-2 ran
 - **packages/game-engine** — Pure UTTT rules engine
 - **packages/bot** — Offline alpha-beta engine (Worker + persistent TT)
 - **packages/contracts** — Shared Zod event schemas
-- **packages/rating** — Glicko-2 + league tiers
+- **packages/rating** — Fixed-delta rating (±40) + league tiers
 - **packages/db** — Drizzle + PostgreSQL schema
 
 ## Game modes
 
 - **Casual** — random online matchmaking (guests allowed)
-- **Ranked** — Glicko-2 ladder (requires a signed-in account)
+- **Ranked** — Fixed-delta ladder starting at 300 (requires a signed-in account)
 - **vs Bot** — offline single-player (`/play/bot`) with Easy / Medium / Hard; searches run in a Web Worker from central profiles in `packages/bot` (no backend required)
 - **Same device** — pass-and-play on one phone or laptop (`/play/local`); scoreline persists across games, with undo
 - **Room** — invite a friend with a 5-character code or shareable link (`/play/room` / `/play/room/ABC12`); the room stays open for rematches and seats swap each game.
@@ -108,13 +108,13 @@ Profiles live in [`packages/bot/src/difficulty.ts`](packages/bot/src/difficulty.
 
 | Level | Governed by | Depth cap | Node budget | Search extras | Notes |
 |-------|-------------|-----------|-------------|---------------|-------|
-| Easy | depth | 2 | 2,500 | forcing q=2 | Wide window + soft blunders; no openings / TT |
-| Medium | depth | 6 | 60,000 | PVS + TT + extensions | Narrow variety; weighted opening book |
+| Easy | depth | 1 | 2,500 | forcing q=1 | Beginner: no meta-block shortcut, unsafe soft blunders, wide noisy root |
+| Medium | depth | 3 | 40,000 | PVS + TT + extensions | Beatable but balanced; trusts meta-block shortcut; light soft-blunder variety |
 | Hard | nodes + clock | 40 | 2,400,000 | PVS + LMR + extensions + endgame | Deterministic principal move; opening book uses center only |
 
 Hard previously capped at depth 12 and finished in roughly 800 ms, leaving most of its 2 s allowance unused. The cap is now high enough to be inert, so the node budget and clock decide when to stop; a slow device returns its deepest completed iteration rather than stalling.
 
-An immediate meta win is played without searching, since it is provably optimal. The meta *block* is not: Easy and Medium trust it (`trustTacticalShortcuts`) because they cannot search deep enough to verify it, while Hard searches it as the first root move and sometimes finds better — taking the contested board outright, for instance, kills the opponent's meta line instead of merely delaying it. Host timeouts use `pickEmergencyMove` (no second UI-thread search).
+An immediate meta win is played without searching on every level, since it is provably optimal. The meta *block* is not: Medium trusts it (`trustTacticalShortcuts`) so it stays a fair defender; Easy leaves blocks to shallow noisy search and may gift the game (`allowUnsafeBlunders`); Hard searches the block as the first root move and sometimes finds better — taking the contested board outright, for instance, kills the opponent's meta line instead of merely delaying it. Host timeouts use `pickEmergencyMove` (no second UI-thread search).
 
 ### Benchmarks
 
@@ -140,14 +140,18 @@ Against the engine as it stood before the LMR table, aspiration windows and root
 
 `npm run arena:quick` / `arena:full` load [`packages/bot/src/fixtures/arena-50.json`](packages/bot/src/fixtures/arena-50.json) when present (else generate 50 positions) × seat swap (= 100 games). These scale budgets down to stay fast, which means they do not measure the shipped bot.
 
-`npm run arena:ship -w @uttt/bot` does, at the cost of running for several minutes; it writes [`ladder-baseline.json`](packages/bot/src/fixtures/ladder-baseline.json) with Elo and per-move cost. Latest run (20 games per pairing):
+`npm run arena:ship -w @uttt/bot` does, at the cost of running for several minutes; it writes [`ladder-baseline.json`](packages/bot/src/fixtures/ladder-baseline.json) with Elo, per-move cost, and **human-proxy** pairings (`random`, `greedy1`, `shallowNoGuard`). Latest run (20 games per pairing):
 
 | Pairing | Score | Elo | 95% CI | W-D-L |
 |---------|-------|-----|--------|-------|
-| Hard over Medium | 0.952 | +520 | [391, 645] | 19-1-0 |
-| Medium over Easy | 0.952 | +520 | [391, 645] | 19-1-0 |
+| Hard over Medium | 0.976 | +645 | [645, 645] | 20-0-0 |
+| Medium over Easy | 0.905 | +391 | [226, 645] | 18-1-1 |
+| Easy over random | 0.929 | +446 | [280, 645] | 19-0-1 |
+| Easy over greedy1 | 0.357 | −102 | [−226, 0] | 3-8-9 |
+| Medium over greedy1 | 0.738 | +180 | [67, 311] | 11-8-1 |
+| Easy over shallowNoGuard | 0.667 | +120 | [−17, 280] | 13-1-6 |
 
-The two rungs are the same size, so the three levels are evenly spaced rather than clustering. Per move, Hard averages 1.35M nodes / 1.2 s (2.0 s worst case) at depth 11.3; Medium 10.9k nodes / 16 ms at depth 5.4; Easy 135 nodes / 0.3 ms at depth 1.9. Millisecond figures are hardware-specific; node counts and Elo are not.
+Human-facing read: Easy loses often to a 1-ply greedy proxy (beginner-friendly) while still beating pure random; Medium sits above that proxy without being a wall. Per move, Hard averages ~1.05M nodes / 1.4 s (2.0 s worst case) at depth ~11; Medium ~550 nodes / 1.3 ms at depth ~2.9; Easy ~36 nodes at depth 1. Millisecond figures are hardware-specific; node counts and Elo are not.
 
 ### Tactical regression suite
 
@@ -162,7 +166,7 @@ The two rungs are the same size, so the three levels are evenly spaced rather th
 - Single-player vs bot (Easy / Medium / Hard)
 - Same-device pass-and-play
 - Private rooms (code + link invite, rematch, seat swap)
-- Glicko-2 ratings, leagues, leaderboard
+- Fixed-delta ratings (±40, capped upset/favorite swings), leagues, leaderboard
 - Profiles & match history
 - Friends (request / accept / online status / direct play request)
 - TR / EN localization

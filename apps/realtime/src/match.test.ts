@@ -10,7 +10,7 @@ function qp(
 ): QueuedPlayer {
   return {
     isGuest: true,
-    rating: 1500,
+    rating: 300,
     rd: 350,
     volatility: 0.06,
     league: "bronze",
@@ -50,7 +50,7 @@ describe("MatchmakingQueue", () => {
         socketId: "1",
         mode: "ranked",
         isGuest: false,
-        rating: 1500,
+        rating: 300,
       }),
     );
     q.enqueue(

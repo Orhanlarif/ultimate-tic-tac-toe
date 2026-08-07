@@ -1,11 +1,22 @@
 import { describe, expect, it } from "vitest";
-import { createGame, getLegalMoves } from "@uttt/game-engine";
+import {
+  applyMove,
+  applyMoves,
+  createGame,
+  getLegalMoves,
+  type GameState,
+} from "@uttt/game-engine";
 import { loadArenaPositions, runArena } from "./arena";
+import { summarizePairs } from "./arenaStats";
+import type { Contender } from "./calibrationGates";
 import {
   chooseMove,
   chooseMoveDetailed,
+  chooseProxyMove,
   createRng,
   DIFFICULTY_PROFILES,
+  evaluateCalibrationGates,
+  isProxyId,
   mctsBestMove,
 } from "./index";
 
@@ -28,7 +39,14 @@ describe("profile strength invariants", () => {
       DIFFICULTY_PROFILES.medium.candidateWindow,
     );
     expect(DIFFICULTY_PROFILES.easy.softBlunderRate).toBeGreaterThan(0);
+    expect(DIFFICULTY_PROFILES.easy.softBlunderRate).toBeGreaterThan(
+      DIFFICULTY_PROFILES.medium.softBlunderRate,
+    );
     expect(DIFFICULTY_PROFILES.hard.softBlunderRate).toBe(0);
+    expect(DIFFICULTY_PROFILES.easy.allowUnsafeBlunders).toBe(true);
+    expect(DIFFICULTY_PROFILES.medium.allowUnsafeBlunders).toBe(false);
+    expect(DIFFICULTY_PROFILES.easy.trustTacticalShortcuts).toBe(false);
+    expect(DIFFICULTY_PROFILES.medium.trustTacticalShortcuts).toBe(true);
     expect(DIFFICULTY_PROFILES.hard.openingPrincipal).toBe(true);
     expect(DIFFICULTY_PROFILES.medium.openingPrincipal).toBe(false);
   });
@@ -92,6 +110,97 @@ describe("arena smoke ordering", () => {
       expect(result.report.score).toBeGreaterThanOrEqual(0.5);
     },
     60_000,
+  );
+});
+
+describe("human-proxy calibration smoke", () => {
+  it(
+    "easy beats random and stays near or under greedy1 on a tiny sample",
+    () => {
+      const starts = loadArenaPositions()
+        .filter((p) => p.tag === "early" || p.tag === "mid")
+        .slice(0, 4)
+        .map((p) => {
+          const built = applyMoves(p.moves);
+          if (!built.ok) throw new Error(built.error);
+          return built.state;
+        })
+        .filter((s) => s.status === "in_progress");
+
+      function play(
+        start: GameState,
+        x: Contender,
+        o: Contender,
+        seed: number,
+      ): "X" | "O" | null {
+        let state = start;
+        let ply = 0;
+        while (state.status === "in_progress" && ply < 90) {
+          const side = state.currentPlayer === "X" ? x : o;
+          const move = isProxyId(side)
+            ? chooseProxyMove(state, side, seed + ply * 9973)
+            : chooseMove(state, {
+                difficulty: side,
+                seed: seed + ply * 9973,
+                useOpenings: false,
+              });
+          const next = applyMove(state, move);
+          if (!next.ok) throw new Error(next.error);
+          state = next.state;
+          ply += 1;
+        }
+        return state.winner;
+      }
+
+      function scorePairing(
+        candidate: Contender,
+        baseline: Contender,
+        seed: number,
+      ): { score: number; elo: number } {
+        const pairs: { q: number }[] = [];
+        for (let i = 0; i < starts.length; i++) {
+          let points = 0;
+          for (const candIsX of [true, false]) {
+            const winner = play(
+              starts[i]!,
+              candIsX ? candidate : baseline,
+              candIsX ? baseline : candidate,
+              seed + i * 1009 + (candIsX ? 0 : 1),
+            );
+            if (winner === null) points += 0.5;
+            else if ((winner === "X") === candIsX) points += 1;
+          }
+          pairs.push({ q: points });
+        }
+        const report = summarizePairs(pairs, { seed });
+        return { score: report.score, elo: report.elo };
+      }
+
+      const vsRandom = scorePairing("easy", "random", 303);
+      const vsGreedy = scorePairing("easy", "greedy1", 404);
+      const medVsEasy = scorePairing("medium", "easy", 202);
+
+      expect(vsRandom.score).toBeGreaterThanOrEqual(0.55);
+      // Beginner Easy should not dominate a 1-ply greedy proxy.
+      expect(vsGreedy.score).toBeLessThanOrEqual(0.7);
+      expect(medVsEasy.score).toBeGreaterThanOrEqual(0.55);
+
+      const gates = evaluateCalibrationGates([
+        { candidate: "easy", baseline: "random", score: vsRandom.score, elo: vsRandom.elo },
+        { candidate: "easy", baseline: "greedy1", score: vsGreedy.score, elo: vsGreedy.elo },
+        {
+          candidate: "medium",
+          baseline: "easy",
+          score: medVsEasy.score,
+          elo: medVsEasy.elo,
+        },
+      ]);
+      // Soft smoke: only fail if Easy is clearly still a wall vs greedy1.
+      expect(
+        gates.filter((g) => g.includes("greedy1") && g.includes("too strong")),
+      ).toHaveLength(0);
+    },
+    120_000,
   );
 });
 

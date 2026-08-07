@@ -342,7 +342,7 @@ export function createRealtimeServer(
         userId: payload.sub,
         displayName: payload.displayName,
         isGuest: payload.isGuest,
-        rating: payload.rating ?? 1500,
+        rating: payload.rating ?? 300,
         rd: payload.rd ?? 350,
         volatility: payload.volatility ?? 0.06,
         league: payload.league ?? "bronze",
